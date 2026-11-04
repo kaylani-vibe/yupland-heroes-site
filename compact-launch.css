@@ -1,0 +1,4 @@
+#compact-launch{position:fixed;z-index:90;right:max(18px,env(safe-area-inset-right));bottom:calc(18px + env(safe-area-inset-bottom));min-height:48px;padding:12px 18px;gap:16px;font-size:20px;box-shadow:0 4px 16px #0008;border:1px solid #15120b;animation:none}
+#compact-launch[hidden]{display:none!important}
+#compact-launch:focus-visible{outline:3px solid #fff;outline-offset:3px}
+@media(max-width:600px){#compact-launch{right:max(12px,env(safe-area-inset-right));bottom:calc(12px + env(safe-area-inset-bottom));min-height:46px;font-size:19px;padding:10px 16px}}
