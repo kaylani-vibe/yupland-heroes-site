@@ -1,0 +1,22 @@
+/* Each parchment/dark pair shares ONE image, including how/guides -> demo. */
+.how-demo{position:relative;isolation:isolate;z-index:6;margin-top:-80px;background:#090505}
+.how-demo::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(90deg,#050505d9,#050505a8 37%,#0603031a 78%),url("assets/red-background.png") center bottom/max(100%,1780px) auto no-repeat}
+.how-demo>#how,.how-demo>#demo{background:transparent}
+.how-demo>#how{margin-top:0}
+.how-demo>#demo>.red-scene-bg,.how-demo>#demo.dark-scene::after{display:none}
+@media(max-width:760px){.how-demo{margin-top:-75px}}
+@media(max-width:600px){.how-demo::before{background-position:center,65% bottom;background-size:auto,auto 1050px}}
+
+/* Newspaper -> finale uses the same contract. */
+.news-finale{position:relative;isolation:isolate;z-index:4;background:#090505}
+.news-finale::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(90deg,#050505d9,#050505a8 37%,#0603031a 78%),url("assets/red-background.png") center bottom/max(100%,1780px) auto no-repeat}
+.news-finale>#news,.news-finale>#final{background:transparent}
+.news-finale>#final>.red-scene-bg,.news-finale>#final.dark-scene::after{display:none}
+.news-finale>#news{margin-top:0}
+.news-finale{margin-top:-65px}
+@media(max-width:600px){
+ .news-finale{margin-top:-45px}
+ .news-finale::before{background-position:center,65% bottom;background-size:auto,auto 1050px}
+ .news-finale>#news{padding-bottom:150px}
+ .news-finale>#final h2{font-size:clamp(42px,10.8vw,62px)}
+}

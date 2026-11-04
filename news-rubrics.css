@@ -1,0 +1,15 @@
+/* Folded newspaper illustrations follow the owner's supplied reference. */
+#news .news-rail{gap:28px;padding-top:0}
+#news .news-rubric{padding:0;border:0}
+#news .news-rubric-link{display:block;color:#17120e;border-radius:2px}
+#news .news-rubric img{display:block;width:100%;max-width:390px;height:auto;aspect-ratio:3/2;object-fit:contain;object-position:center;margin:0 auto 14px;transform:none;box-shadow:none}
+#news .news-rubric h3{font-size:clamp(24px,2.05vw,32px);line-height:1.05;text-shadow:none}
+.news-rubric-description{display:grid;grid-template-columns:minmax(0,1fr) 28px;align-items:center;gap:14px;margin-top:8px}
+#news .news-rubric-description p{margin:0;font-size:14px;line-height:1.4}
+.news-rubric-description>span{font:30px/1 var(--body);text-align:right}
+#news .news-rubric-link:hover h3{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+#news .news-rubric-link:focus-visible,#news .news-archive summary:focus-visible{outline:3px solid #6a4523;outline-offset:6px}
+#news .news-archive{margin-top:0}
+#news .news-archive summary{min-height:52px;border:2px solid #302416;border-radius:3px;background:transparent;font-size:24px;gap:14px}
+@media(max-width:760px){#news .news-rail{display:flex;flex-direction:column;gap:28px;width:min(100%,460px);margin:12px auto 0}#news .news-rubric h3{font-size:28px}}
+@media(max-width:600px){#news .news-rubric img{margin-bottom:12px}#news .news-rail{gap:26px}#news .news-rubric h3{font-size:26px}}

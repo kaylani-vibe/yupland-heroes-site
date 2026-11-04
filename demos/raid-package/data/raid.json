@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "hero": {
+    "name": {
+      "ru": "Рыцарь",
+      "en": "Knight"
+    },
+    "image": "knight-landscape.png"
+  },
+  "resource": {
+    "id": "cst_enln93ubvhsn",
+    "name": {
+      "ru": "Бревна Радужные",
+      "en": "Rainbow Logs"
+    },
+    "image": "rainbow-logs.webp",
+    "sceneQuantity": 4,
+    "saleUnitGold": 25,
+    "offerId": "mkt_9l59qjrd1n9"
+  },
+  "artifact": {
+    "id": "art_GMihRMHltI",
+    "name": {
+      "ru": "Камни",
+      "en": "Stones"
+    },
+    "image": "stones.png",
+    "goldPrice": 100,
+    "stat": "Attack",
+    "statAmount": 3,
+    "slot": {
+      "ru": "Карманы",
+      "en": "Pockets"
+    },
+    "offerId": "mkt_jnblyz78jcqa"
+  },
+  "source": {
+    "snapshotAt": "2026-10-29T16:48:14.903Z",
+    "note": "Selected historical game offers; scene quantity and map are local demo fixtures. See SOURCES.md."
+  },
+  "enemy": {
+    "id": "rbt_VdDcZUQj",
+    "name": {
+      "ru": "Болотный скелет воин",
+      "en": "Swamp Skeleton Warrior"
+    },
+    "image": "skeleton-art.png"
+  }
+}
