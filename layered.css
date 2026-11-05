@@ -246,7 +246,7 @@ html[lang=en] .hero h1{font-size:clamp(64px,8vw,115px)}html[lang=en] .how h2{fon
 
 /* One launch choice for every full-game CTA; unavailable builds stay explicit. */
 html.launch-open{overflow:hidden}
-.launch-dialog{width:min(720px,calc(100vw - 32px));max-width:none;max-height:calc(100dvh - 32px);padding:0;overflow:auto;border:1px solid #876443;border-radius:4px;background:#f3e5ca url("assets/parchment-how-lite.webp") center/cover;color:#17120e;box-shadow:0 24px 60px #0009}
+.launch-dialog{width:min(720px,calc(100vw - 32px));max-width:none;max-height:calc(100dvh - 32px);padding:0;overflow:auto;border:1px solid #876443;border-radius:4px;background:#f3e5ca;color:#17120e;box-shadow:0 24px 60px #0009}
 .launch-dialog::backdrop{background:#050505de}
 .launch-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:24px 24px 20px;border-bottom:1px solid #6a482a55}
 .launch-header .display{font-size:clamp(30px,4vw,44px);line-height:1;letter-spacing:-.01em;text-shadow:none}
