@@ -147,7 +147,7 @@
     demoSession = `${Date.now()}-${++demoAttempt}`;
     setDemoState('loading');
     const mode = dialog.dataset.mode;
-    frame.src = 'experience.html?embed=' + mode + '&lang=' + language + '&session=' + encodeURIComponent(demoSession) + '#' + (mode === 'mini' ? 'minigame' : 'demo');
+    frame.src = 'experience.html?v=20261105-images-1&embed=' + mode + '&lang=' + language + '&session=' + encodeURIComponent(demoSession) + '#' + (mode === 'mini' ? 'minigame' : 'demo');
     demoTimeout = window.setTimeout(failDemo, 15000);
   }
   document.querySelectorAll('[data-play]').forEach(button => button.addEventListener('click', () => {

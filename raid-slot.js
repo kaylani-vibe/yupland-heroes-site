@@ -37,7 +37,7 @@
     frame.addEventListener('error', fail);
     slot.dataset.state = 'loading'; slot.setAttribute('aria-busy','true');
     status.hidden = false; retry.hidden = true; frame.hidden = true;
-    frame.src = 'demos/raid-package/raid/index.html?embed=1&close=host&lang=' + (english() ? 'en' : 'ru');
+    frame.src = 'demos/raid-package/raid/index.html?v=20261105-images-1&embed=1&close=host&lang=' + (english() ? 'en' : 'ru');
     timer = setTimeout(fail,60000); text();
   }
   function start(button) {

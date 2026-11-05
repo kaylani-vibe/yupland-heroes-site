@@ -5,7 +5,7 @@
       "ru": "Рыцарь",
       "en": "Knight"
     },
-    "image": "knight-landscape.png"
+    "image": "knight-landscape.webp"
   },
   "resource": {
     "id": "cst_enln93ubvhsn",
@@ -24,7 +24,7 @@
       "ru": "Камни",
       "en": "Stones"
     },
-    "image": "stones.png",
+    "image": "stones.webp",
     "goldPrice": 100,
     "stat": "Attack",
     "statAmount": 3,
@@ -44,6 +44,6 @@
       "ru": "Болотный скелет воин",
       "en": "Swamp Skeleton Warrior"
     },
-    "image": "skeleton-art.png"
+    "image": "skeleton-art.webp"
   }
 }

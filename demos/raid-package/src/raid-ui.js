@@ -1,7 +1,7 @@
-import{createRaidModel}from'./raid-model.js';
+import{createRaidModel}from'./raid-model.js?v=20261105-images-1';
 const requestedLayout=new URLSearchParams(location.search).get('layout'),chooseLayout=()=>['portrait','landscape'].includes(requestedLayout)?requestedLayout:innerHeight>innerWidth?'portrait':'landscape';
 let raidModel=createRaidModel(chooseLayout());let{COLS,ROWS,R,WORLD,OBJECTS,SCENERY,BATTLE_SCENERY,blockedFor,sceneFor,key,same,center,walkable,neighbors,pathTo,pathToObject,canInteract,targetId,freshState,transition,validateData,restoreState}=raidModel;
-import{createBattle}from'./raid-battle.js';import{copy}from'./raid-copy.js';import{createEffects}from'./raid-fx.js';
+import{createBattle}from'./raid-battle.js?v=20261105-images-1';import{copy}from'./raid-copy.js?v=20261105-images-1';import{createEffects}from'./raid-fx.js?v=20261105-images-1';
 const $=id=>document.getElementById(id),params=new URLSearchParams(location.search),embedded=params.get('embed')==='1',SVG='http://www.w3.org/2000/svg',SP=340,STORAGE='yh-raid-demo-v6';
 const asset=f=>new URL('../assets/'+f,import.meta.url).href,reduced=()=>matchMedia('(prefers-reduced-motion:reduce)').matches||document.documentElement.dataset.motion==='reduced';
 let lang=params.get('lang')==='en'?'en':'ru',data,state=freshState(),mode='loading',saved=null,moving=false,busy=false,routeRaf=0,operation=0,loadVersion=0,loadAbort;
@@ -36,7 +36,7 @@ async function load(){
  const version=++loadVersion;loadAbort?.abort();loadAbort=new AbortController();$('progress').value=0;cover('loading');const timeout=setTimeout(()=>loadAbort.abort(),12000);
  try{
   const r=await fetch(new URL('../data/raid.json',import.meta.url),{signal:loadAbort.signal,cache:'no-store'});if(!r.ok)throw Error('load');const d=await r.json();if(!validateData(d))throw Error('data');
-  const files=[...new Set([d.hero.image,d.enemy.image,d.resource.image,d.artifact.image,'chest-closed-art.png','chest-open-art.png','battle-landscape.webp','village-landscape.webp','battle-portrait.webp','village-portrait.webp','ring-gold.png','slash-gold.png','knight-idle-art.png','knight-attack-art.png','market-building.webp','armory-building.webp','grass.webp','dirt.webp','paving.webp','gold.webp',...[...SCENERY,...BATTLE_SCENERY].map(p=>p.art)])];let done=0;
+  const files=[...new Set([d.hero.image,d.enemy.image,d.resource.image,d.artifact.image,'chest-closed-art.webp','chest-open-art.webp','battle-landscape.webp','village-landscape.webp','battle-portrait.webp','village-portrait.webp','ring-gold.webp','slash-gold.webp','knight-idle-art.webp','knight-attack-art.webp','market-building.webp','armory-building.webp','grass.webp','dirt.webp','paving.webp','gold.webp',...[...SCENERY,...BATTLE_SCENERY].map(p=>p.art)])];let done=0;
   await Promise.all(files.map(f=>new Promise((resolve,reject)=>{const im=new Image(),timer=setTimeout(()=>reject(Error('image timeout')),45000);im.onload=()=>{clearTimeout(timer);if(version===loadVersion)$('progress').value=++done/files.length*100;resolve();};im.onerror=()=>{clearTimeout(timer);reject(Error('image: '+f));};im.src=asset(f);})));if(version!==loadVersion)return;
   data=d;try{saved=restoreState(JSON.parse(sessionStorage.getItem(STORAGE)??sessionStorage.getItem('yh-raid-demo-v5')),data);}catch{saved=null;}if(saved?.phase==='complete')saved=null;state=saved??freshState();visualPos=center(state.pos);build();setLanguage(lang);cover('intro');send('ready');
  }catch(error){console.error('Raid demo load failed:',error);if(version===loadVersion){cover('error');send('error',{reason:'load'});}}finally{clearTimeout(timeout);}
@@ -70,7 +70,7 @@ function render(){
  document.querySelectorAll('.step').forEach((el,i)=>{el.classList.toggle('current',i===index&&phase!=='complete');el.classList.toggle('done',i<index||phase==='complete');});
  for(const[k,b]of Object.entries(objects)){
   b.hidden=renderedScene==='battle'?k!=='enemy':k==='enemy';const active=k===id&&phase!=='complete';b.classList.toggle('active',active);b.classList.toggle('claimed',k==='resource'&&state.chestOpened);b.setAttribute('aria-disabled',String(busy||phase==='complete'));if(k==='enemy')b.classList.toggle('defeated',state.enemyDefeated);
-  b.querySelector('img').src=asset(k==='resource'&&state.chestOpened?'chest-open-art.png':OBJECTS[k].art);b.querySelector('.object-pin').hidden=!active;
+  b.querySelector('img').src=asset(k==='resource'&&state.chestOpened?'chest-open-art.webp':OBJECTS[k].art);b.querySelector('.object-pin').hidden=!active;
   const text=k==='resource'?t(state.chestOpened?(raidModel.layout==='portrait'?'chest':'collected'):'open'):k==='trader'?t(active?'sellAt':'market'):k==='enemy'?(state.enemyDefeated?t('victory'):name(data.enemy)):t('armory');priceLabel(b.querySelector('.place-label'),text,active&&k==='trader'?data.resource.sceneQuantity*data.resource.saleUnitGold:active&&k==='armorer'?data.artifact.goldPrice:undefined);
   b.setAttribute('aria-label',t({resource:'chest',trader:'market',armorer:'armory',enemy:'enemy'}[k]));if(k==='enemy')b.querySelector('[role=progressbar]').setAttribute('aria-label',name(data.enemy));
  }

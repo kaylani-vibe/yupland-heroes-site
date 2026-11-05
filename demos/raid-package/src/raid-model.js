@@ -1,16 +1,16 @@
 // Pointy hexes use sqrt(3)*R horizontally and 1.5*R vertically.
 const LAYOUTS={
  landscape:{COLS:6,ROWS:4,R:125,WORLD:{width:1600,height:1000},origin:[180,170],battleStart:[1,3],villageStart:[2,2],objects:{
-  resource:{cell:[0,2],footprint:[[0,2]],access:[[1,2]],art:'chest-closed-art.png',size:235,box:[235,298],anchor:{x:225,y:610}},
+  resource:{cell:[0,2],footprint:[[0,2]],access:[[1,2]],art:'chest-closed-art.webp',size:235,box:[235,298],anchor:{x:225,y:610}},
   trader:{cell:[4,1],footprint:[[3,0],[4,0],[5,0],[3,1],[4,1],[5,1]],access:[[3,2]],art:'market-building.webp',size:530,box:[530,330],anchor:{x:1080,y:415},baked:true},
   armorer:{cell:[4,3],footprint:[[4,2],[5,2],[4,3],[5,3]],access:[[2,3]],art:'armory-building.webp',size:530,box:[530,430],anchor:{x:1220,y:830},baked:true},
-  enemy:{cell:[4,2],footprint:[[4,2]],access:[[2,3]],art:'skeleton-art.png',size:340,box:[340,360],anchor:{x:1060,y:550}}
+  enemy:{cell:[4,2],footprint:[[4,2]],access:[[2,3]],art:'skeleton-art.webp',size:340,box:[340,360],anchor:{x:1060,y:550}}
  }},
  portrait:{COLS:4,ROWS:6,R:100,WORLD:{width:900,height:1600},origin:[150,450],battleStart:[0,5],villageStart:[1,4],objects:{
-  resource:{cell:[0,2],footprint:[[0,2]],access:[[1,2]],art:'chest-closed-art.png',size:220,box:[220,279],anchor:{x:155,y:820}},
+  resource:{cell:[0,2],footprint:[[0,2]],access:[[1,2]],art:'chest-closed-art.webp',size:220,box:[220,279],anchor:{x:155,y:820}},
   trader:{cell:[2,1],footprint:[[2,0],[3,0],[2,1],[3,1],[2,2],[3,2]],access:[[0,3]],art:'market-building.webp',size:560,box:[560,365],anchor:{x:600,y:800},baked:true},
   armorer:{cell:[2,5],footprint:[[1,3],[2,3],[3,3],[2,4],[3,4],[1,5],[2,5],[3,5]],access:[[0,5]],art:'armory-building.webp',size:540,box:[540,460],anchor:{x:600,y:1245},baked:true},
-  enemy:{cell:[2,2],footprint:[[2,1],[2,2]],access:[[1,4]],art:'skeleton-art.png',size:340,box:[340,360],anchor:{x:600,y:760}}
+  enemy:{cell:[2,2],footprint:[[2,1],[2,2]],access:[[1,4]],art:'skeleton-art.webp',size:340,box:[340,360],anchor:{x:600,y:760}}
  }}
 };
 
