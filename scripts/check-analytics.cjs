@@ -48,7 +48,8 @@ assert.deepEqual(JSON.parse(JSON.stringify(captured[1][1])), {
 
 document.documentElement.dataset = {raidSlotReady: 'true'};
 click({target: new Element({'[data-play]': demo})});
-assert.equal(captured.length, 2, 'an inactive demo button is not a start');
+assert.equal(captured.length, 3, 'the embedded raid still starts when the raid slot is ready');
+assert.equal(captured[2][0], 'site_demo_started');
 
 let localListener = false;
 vm.runInNewContext(source, {

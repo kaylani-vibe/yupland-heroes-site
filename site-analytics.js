@@ -22,8 +22,7 @@
     const launch = element.closest('[data-launch]');
     if (launch) launchPlacement = placement(launch);
     const demo = element.closest('[data-play]');
-    if (demo && ['demo', 'mini'].includes(demo.dataset.play)
-      && !(demo.dataset.play === 'demo' && document.documentElement.dataset.raidSlotReady === 'true')) {
+    if (demo && ['demo', 'mini'].includes(demo.dataset.play)) {
       capture('site_demo_started', {demo_type: demo.dataset.play === 'mini' ? 'excavations' : 'raid', placement: placement(demo)});
     }
     const option = element.closest('.launch-option');
