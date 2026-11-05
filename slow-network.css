@@ -1,0 +1,10 @@
+/* Lower scenes do not compete with the first screen for bandwidth. */
+[data-background-pending]::before,
+[data-media-pending] .world-bg,
+[data-media-pending] .red-scene-bg {
+  background-image:none!important;
+}
+@media(max-width:700px){
+ .hero-bg::before{background-image:url("assets/red-background-mobile-lite.webp")}
+
+}

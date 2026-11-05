@@ -173,8 +173,8 @@
       if(same(pos,cells.guard)&&!game.guard)tile.classList.add('guard');
       if(same(pos,game.pos))tile.classList.add('current');
       if(game.started&&adjacent(game.pos,pos)&&!walls.has(`${x},${y}`))tile.classList.add('reachable');
-      if(same(pos,game.pos)){const img=document.createElement('img');img.src=`assets/hero-${selectedHero}.webp`;img.alt='';tile.append(img);}
-      else if(same(pos,cells.mine)){const img=document.createElement('img');img.src='assets/gold-mine.webp';img.alt='';tile.append(img);}
+      if(same(pos,game.pos)){const img=document.createElement('img');img.src=`assets/hero-${selectedHero}-lite.webp`;img.alt='';tile.append(img);}
+      else if(same(pos,cells.mine)){const img=document.createElement('img');img.src='assets/gold-mine-lite.webp';img.alt='';tile.append(img);}
       else if(same(pos,cells.ore)&&!game.ore){tile.append(makeMark('✦','ore'));}
       else if(same(pos,cells.power)&&!game.power){tile.append(makeMark('✚','ore'));}
       else if(same(pos,cells.guard)&&!game.guard){tile.append(makeMark('♜','guard-icon'));}

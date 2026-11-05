@@ -5,7 +5,7 @@
       "ru": "Рыцарь",
       "en": "Knight"
     },
-    "image": "knight-landscape.webp"
+    "image": "knight-landscape-lite.webp"
   },
   "resource": {
     "id": "cst_enln93ubvhsn",
@@ -13,7 +13,7 @@
       "ru": "Бревна Радужные",
       "en": "Rainbow Logs"
     },
-    "image": "rainbow-logs.webp",
+    "image": "rainbow-logs-lite.webp",
     "sceneQuantity": 4,
     "saleUnitGold": 25,
     "offerId": "mkt_9l59qjrd1n9"
@@ -24,7 +24,7 @@
       "ru": "Камни",
       "en": "Stones"
     },
-    "image": "stones.webp",
+    "image": "stones-lite.webp",
     "goldPrice": 100,
     "stat": "Attack",
     "statAmount": 3,
@@ -44,6 +44,6 @@
       "ru": "Болотный скелет воин",
       "en": "Swamp Skeleton Warrior"
     },
-    "image": "skeleton-art.webp"
+    "image": "skeleton-art-lite.webp"
   }
 }

@@ -31,7 +31,7 @@ html[lang="en"] .news-finale::before{background-size:auto,cover;background-posit
 .creator-roadmap li+li{border-left:0}
 .creator-roadmap li+li::after{content:"";position:absolute;left:0;top:56px;bottom:0;width:1px;background:#d5c78d80}
 @media(max-width:480px){.creator-roadmap li+li::after{display:none}}
-.creator-vision::after{content:"";position:absolute;left:0;right:0;bottom:-32px;height:84px;background:url("assets/transition-red-edge.webp") center 55%/100% auto no-repeat;pointer-events:none}
+.creator-vision::after{content:"";position:absolute;left:0;right:0;bottom:-32px;height:84px;background:url("assets/transition-red-edge-lite.webp") center 55%/100% auto no-repeat;pointer-events:none}
 @media(max-width:600px){.creator-vision::after{bottom:-24px;height:64px;background-size:900px auto}}
 /* Fidelity pass: approved source artwork, no regenerated substitutions. */
 .creator-vision{isolation:isolate;padding-top:88px;padding-bottom:110px}

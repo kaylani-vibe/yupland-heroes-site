@@ -11,7 +11,7 @@ export function createEffects({layer,world,hero,hud,asset,reduced}){
  function cancel(){generation++;for(const end of [...active])end();layer.replaceChildren();hero.classList.remove('celebrate');}
  async function fly(image,from,to,count=4,{duration=570,spread=65,arc=65}={}){
   const nodes=[];const countSafe=reduced()?1:count;
-  const jobs=Array.from({length:countSafe},(_,i)=>{const el=document.createElement('img');el.src=asset(image);el.alt='';el.className='flying-item'+(image==='gold.webp'?' coin':'');layer.append(el);nodes.push(el);
+  const jobs=Array.from({length:countSafe},(_,i)=>{const el=document.createElement('img');el.src=asset(image);el.alt='';el.className='flying-item'+(image==='gold-lite.webp'?' coin':'');layer.append(el);nodes.push(el);
    return animate(duration+i*spread,p=>{const q=Math.max(0,Math.min(1,(p*(duration+i*spread)-i*spread)/duration)),e=1-(1-q)**3;el.style.left=(from.x+(to.x-from.x)*e+(i%3-1)*Math.sin(q*Math.PI)*10)+'px';el.style.top=(from.y+(to.y-from.y)*e-Math.sin(q*Math.PI)*arc)+'px';el.style.opacity=q===0||q===1?'0':'1';el.style.transform=`translate(-50%,-50%) scale(${.65+Math.sin(q*Math.PI)*.6}) rotate(${(i%2?1:-1)*q*70}deg)`;});
   });
   const ok=(await Promise.all(jobs)).every(Boolean);nodes.forEach(n=>n.remove());return ok;

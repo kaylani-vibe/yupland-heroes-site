@@ -1,7 +1,7 @@
-import{createRaidModel}from'./raid-model.js?v=20261105-images-1';
+import{createRaidModel}from'./raid-model.js?v=20261105-light-3';
 const requestedLayout=new URLSearchParams(location.search).get('layout'),chooseLayout=()=>['portrait','landscape'].includes(requestedLayout)?requestedLayout:innerHeight>innerWidth?'portrait':'landscape';
 let raidModel=createRaidModel(chooseLayout());let{COLS,ROWS,R,WORLD,OBJECTS,SCENERY,BATTLE_SCENERY,blockedFor,sceneFor,key,same,center,walkable,neighbors,pathTo,pathToObject,canInteract,targetId,freshState,transition,validateData,restoreState}=raidModel;
-import{createBattle}from'./raid-battle.js?v=20261105-images-1';import{copy}from'./raid-copy.js?v=20261105-images-1';import{createEffects}from'./raid-fx.js?v=20261105-images-1';
+import{createBattle}from'./raid-battle.js?v=20261105-light-3';import{copy}from'./raid-copy.js?v=20261105-light-3';import{createEffects}from'./raid-fx.js?v=20261105-light-3';
 const $=id=>document.getElementById(id),params=new URLSearchParams(location.search),embedded=params.get('embed')==='1',SVG='http://www.w3.org/2000/svg',SP=340,STORAGE='yh-raid-demo-v6';
 const asset=f=>new URL('../assets/'+f,import.meta.url).href,reduced=()=>matchMedia('(prefers-reduced-motion:reduce)').matches||document.documentElement.dataset.motion==='reduced';
 let lang=params.get('lang')==='en'?'en':'ru',data,state=freshState(),mode='loading',saved=null,moving=false,busy=false,routeRaf=0,operation=0,loadVersion=0,loadAbort;
@@ -36,7 +36,7 @@ async function load(){
  const version=++loadVersion;loadAbort?.abort();loadAbort=new AbortController();$('progress').value=0;cover('loading');const timeout=setTimeout(()=>loadAbort.abort(),12000);
  try{
   const r=await fetch(new URL('../data/raid.json',import.meta.url),{signal:loadAbort.signal,cache:'no-store'});if(!r.ok)throw Error('load');const d=await r.json();if(!validateData(d))throw Error('data');
-  const files=[...new Set([d.hero.image,d.enemy.image,d.resource.image,d.artifact.image,'chest-closed-art.webp','chest-open-art.webp','battle-landscape.webp','village-landscape.webp','battle-portrait.webp','village-portrait.webp','ring-gold.webp','slash-gold.webp','knight-idle-art.webp','knight-attack-art.webp','market-building.webp','armory-building.webp','grass.webp','dirt.webp','paving.webp','gold.webp',...[...SCENERY,...BATTLE_SCENERY].map(p=>p.art)])];let done=0;
+  const files=[...new Set([d.hero.image,d.enemy.image,d.resource.image,d.artifact.image,'chest-closed-art-lite.webp','chest-open-art-lite.webp','battle-'+raidModel.layout+'-lite.webp','village-'+raidModel.layout+'-lite.webp','ring-gold-lite.webp','slash-gold-lite.webp','knight-idle-art-lite.webp','knight-attack-art-lite.webp','market-building-lite.webp','armory-building-lite.webp','grass-lite.webp','dirt-lite.webp','paving-lite.webp','gold-lite.webp',...[...SCENERY,...BATTLE_SCENERY].map(p=>p.art)])];let done=0;
   await Promise.all(files.map(f=>new Promise((resolve,reject)=>{const im=new Image(),timer=setTimeout(()=>reject(Error('image timeout')),45000);im.onload=()=>{clearTimeout(timer);if(version===loadVersion)$('progress').value=++done/files.length*100;resolve();};im.onerror=()=>{clearTimeout(timer);reject(Error('image: '+f));};im.src=asset(f);})));if(version!==loadVersion)return;
   data=d;try{saved=restoreState(JSON.parse(sessionStorage.getItem(STORAGE)??sessionStorage.getItem('yh-raid-demo-v5')),data);}catch{saved=null;}if(saved?.phase==='complete')saved=null;state=saved??freshState();visualPos=center(state.pos);build();setLanguage(lang);cover('intro');send('ready');
  }catch(error){console.error('Raid demo load failed:',error);if(version===loadVersion){cover('error');send('error',{reason:'load'});}}finally{clearTimeout(timeout);}
@@ -48,7 +48,7 @@ function resize(){
 function hexPath(p){const c=center(p);return Array.from({length:6},(_,i)=>{const a=(60*i-30)*Math.PI/180;return`${i?'L':'M'}${c.x+R*Math.cos(a)},${c.y+R*Math.sin(a)}`;}).join(' ')+'Z';}
 function objectCenter(id){return OBJECTS[id].anchor??center(OBJECTS[id].cell);}
 function build(){
- renderedScene=sceneFor(state);$('frame').dataset.scene=renderedScene;$('scene-bg').src=asset(renderedScene+'-'+(raidModel.layout==='portrait'?'portrait':'landscape')+'.webp');for(const id of ['hex-floor','route'])$(id).setAttribute('viewBox',`0 0 ${WORLD.width} ${WORLD.height}`);fx.cancel();$('world').classList.toggle('battlefield',renderedScene==='battle');$('world').classList.remove('scene-arrival');void $('world').offsetWidth;$('world').classList.add('scene-arrival');
+ renderedScene=sceneFor(state);$('frame').dataset.scene=renderedScene;$('scene-bg').src=asset(renderedScene+'-'+(raidModel.layout==='portrait'?'portrait':'landscape')+'-lite.webp');for(const id of ['hex-floor','route'])$(id).setAttribute('viewBox',`0 0 ${WORLD.width} ${WORLD.height}`);fx.cancel();$('world').classList.toggle('battlefield',renderedScene==='battle');$('world').classList.remove('scene-arrival');void $('world').offsetWidth;$('world').classList.add('scene-arrival');
  $('actors').replaceChildren();$('hex-floor').replaceChildren();$('route').replaceChildren();tiles.length=0;hexes.length=0;
  for(let y=0;y<ROWS;y++)for(let x=0;x<COLS;x++){
   const p=[x,y],c=center(p),el=document.createElementNS(SVG,'path');el.setAttribute('d',hexPath(p));if(blockedFor(renderedScene).has(key(p)))el.classList.add('blocked');$('hex-floor').append(el);hexes.push({el,p});
@@ -62,7 +62,7 @@ function build(){
  $('hero-cargo').replaceChildren();for(let i=0;i<1;i++){const im=document.createElement('img');im.src=asset(data.resource.image);im.alt='';im.style.setProperty('--i',i);$('hero-cargo').append(im);}
  $('hero-artifact').src=asset(data.artifact.image);$('shop-item').src=asset(data.artifact.image);$('shop-price').textContent=num(data.artifact.goldPrice);battle.reset(state);resize();paintHero();render();
 }
-function priceLabel(el,text,n){el.replaceChildren(document.createTextNode(text));if(n!==undefined){const im=document.createElement('img');im.src=asset('gold.webp');im.alt='';el.append(im,document.createTextNode(num(n)));}}
+function priceLabel(el,text,n){el.replaceChildren(document.createTextNode(text));if(n!==undefined){const im=document.createElement('img');im.src=asset('gold-lite.webp');im.alt='';el.append(im,document.createTextNode(num(n)));}}
 function render(){
  if(!data)return;if(renderedScene!==sceneFor(state)){visualPos=center(state.pos);hidePrompt();build();return;}const phase=state.phase,id=targetId(state),index={encounter:0,collect:1,sell:2,buy:3,equip:3,revenge:4,complete:4}[phase];
  $('task-title').textContent=t('visualTitle'+phase[0].toUpperCase()+phase.slice(1));$('step-count').textContent=String(index+1).padStart(2,'0')+' / 05';$('resource-count').textContent=num(state.resource);$('gold-count').textContent=num(state.gold);
@@ -70,7 +70,7 @@ function render(){
  document.querySelectorAll('.step').forEach((el,i)=>{el.classList.toggle('current',i===index&&phase!=='complete');el.classList.toggle('done',i<index||phase==='complete');});
  for(const[k,b]of Object.entries(objects)){
   b.hidden=renderedScene==='battle'?k!=='enemy':k==='enemy';const active=k===id&&phase!=='complete';b.classList.toggle('active',active);b.classList.toggle('claimed',k==='resource'&&state.chestOpened);b.setAttribute('aria-disabled',String(busy||phase==='complete'));if(k==='enemy')b.classList.toggle('defeated',state.enemyDefeated);
-  b.querySelector('img').src=asset(k==='resource'&&state.chestOpened?'chest-open-art.webp':OBJECTS[k].art);b.querySelector('.object-pin').hidden=!active;
+  b.querySelector('img').src=asset(k==='resource'&&state.chestOpened?'chest-open-art-lite.webp':OBJECTS[k].art);b.querySelector('.object-pin').hidden=!active;
   const text=k==='resource'?t(state.chestOpened?(raidModel.layout==='portrait'?'chest':'collected'):'open'):k==='trader'?t(active?'sellAt':'market'):k==='enemy'?(state.enemyDefeated?t('victory'):name(data.enemy)):t('armory');priceLabel(b.querySelector('.place-label'),text,active&&k==='trader'?data.resource.sceneQuantity*data.resource.saleUnitGold:active&&k==='armorer'?data.artifact.goldPrice:undefined);
   b.setAttribute('aria-label',t({resource:'chest',trader:'market',armorer:'armory',enemy:'enemy'}[k]));if(k==='enemy')b.querySelector('[role=progressbar]').setAttribute('aria-label',name(data.enemy));
  }
@@ -105,14 +105,14 @@ async function interact(id){
   if(ticket!==operation)return;if(commit('COLLECT')){fx.pop({x:visualPos.x,y:visualPos.y-310},'+'+data.resource.sceneQuantity,data.resource.image);announce('flowCollect');}
  }else if(state.phase==='sell'){
   const amount=state.resource*data.resource.saleUnitGold;await fx.fly(data.resource.image,fx.hero(),{...objectCenter('trader'),y:objectCenter('trader').y-90},state.resource);if(ticket!==operation)return;
-  if(commit('SELL')){fx.pop({x:visualPos.x,y:visualPos.y-310},'+'+num(amount),'gold.webp');$('hero-cargo').hidden=true;await Promise.all([fx.fly('gold.webp',{...objectCenter('trader'),y:objectCenter('trader').y-90},fx.balance(),12,{arc:180,duration:650,spread:30}),fx.counter($('gold-count'),state.gold-amount,state.gold,num)]);if(ticket!==operation)return;announce('flowSell');}
+  if(commit('SELL')){fx.pop({x:visualPos.x,y:visualPos.y-310},'+'+num(amount),'gold-lite.webp');$('hero-cargo').hidden=true;await Promise.all([fx.fly('gold-lite.webp',{...objectCenter('trader'),y:objectCenter('trader').y-90},fx.balance(),12,{arc:180,duration:650,spread:30}),fx.counter($('gold-count'),state.gold-amount,state.gold,num)]);if(ticket!==operation)return;announce('flowSell');}
  }
  busy=false;render();
 }
 function positionPrompt(){if(!promptOpen)return;const box=$('shop-prompt'),portrait=raidModel.layout==='portrait',width=portrait?800:390;box.style.width=width+'px';box.style.left=Math.max(20,Math.min(WORLD.width-width-20,visualPos.x-width/2))+'px';box.style.top=Math.max(110,Math.min(WORLD.height-210,visualPos.y-(portrait?570:390)))+'px';}
 async function buy(){
  if(busy||state.phase!=='buy'||!canInteract(state,'armorer'))return;const ticket=++operation,oldGold=state.gold;busy=true;hidePrompt();if(!commit('BUY')){busy=false;return;}
- await Promise.all([fx.fly('gold.webp',fx.balance(),{...objectCenter('armorer'),y:objectCenter('armorer').y-150},8,{arc:95}),fx.counter($('gold-count'),oldGold,state.gold,num)]);if(ticket!==operation)return;
+ await Promise.all([fx.fly('gold-lite.webp',fx.balance(),{...objectCenter('armorer'),y:objectCenter('armorer').y-150},8,{arc:95}),fx.counter($('gold-count'),oldGold,state.gold,num)]);if(ticket!==operation)return;
  await fx.fly(data.artifact.image,{...objectCenter('armorer'),y:objectCenter('armorer').y-170},fx.hero(),1,{arc:80,duration:650});if(ticket!==operation)return;await finishUpgrade(ticket);
 }
 async function finishUpgrade(ticket){
