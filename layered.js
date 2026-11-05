@@ -1,4 +1,13 @@
 (() => {
+  const requestedLanguage = new URLSearchParams(window.location.search).get('lang');
+  if (requestedLanguage === 'en' && !window.location.pathname.endsWith('/en.html')) {
+    const englishUrl = new URL('en.html', window.location.href);
+    englishUrl.search = window.location.search;
+    englishUrl.searchParams.delete('lang');
+    englishUrl.hash = window.location.hash;
+    window.location.replace(englishUrl.href);
+    return;
+  }
   const en = {
     skip:'Skip to content',openGame:'Open the game',navHow:'How to play',navDemo:'Demo',navWorld:'World',navMini:'Excavations',navGuides:'Guides',navNews:'News',
     heroKicker:'ADVENTURE',hero1:'A WORLD',hero2:'AWAITS',hero3:'A HERO',heroDescription:'Your first raid: choose a hero, find the mine and face its guard.',playDemo:'Play the demo',
@@ -39,13 +48,13 @@
   function setLanguage(next) {
     language = next;
     document.documentElement.lang = next;
-    document.title = next === 'ru' ? 'Yupland Heroes — мир ждёт героя' : 'Yupland Heroes — a world awaits a hero';
+    document.title = next === 'ru' ? 'Yupland Heroes — исследуй мир и выбери свой путь' : 'Yupland Heroes — explore a world, choose your path';
     document.querySelectorAll('[data-i18n]').forEach(node => {
       if (!node.dataset.ru) node.dataset.ru = node.textContent;
       node.textContent = next === 'ru' ? node.dataset.ru : en[node.dataset.i18n] || node.dataset.ru;
     });
     langButton.innerHTML = next === 'ru' ? 'RU <span>/</span> EN' : 'EN <span>/</span> RU';
-    langButton.setAttribute('aria-label', next === 'ru' ? 'Switch language to English' : 'Переключить на русский');
+    langButton.setAttribute('aria-label', next === 'ru' ? 'Переключить на английский' : 'Switch language to Russian');
     menuButton.setAttribute('aria-label', next === 'ru' ? 'Открыть меню' : 'Open menu');
     document.querySelector('.raid-trigger').setAttribute('aria-label', next === 'ru' ? 'Играть в первый рейд' : 'Play the first raid');
     document.querySelector('.mini-trigger').setAttribute('aria-label', next === 'ru' ? 'Играть в раскопки' : 'Play excavations');
@@ -108,7 +117,11 @@
     const bounds = launchDialog.getBoundingClientRect();
     if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) launchDialog.close();
   });
-  langButton.addEventListener('click', () => setLanguage(language === 'ru' ? 'en' : 'ru'));
+  langButton.addEventListener('click', () => {
+    const nextPage = new URL(language === 'ru' ? 'en.html' : './', window.location.href);
+    nextPage.hash = window.location.hash;
+    window.location.assign(nextPage.href);
+  });
   menuButton.addEventListener('click', () => {
     if (document.documentElement.dataset.mobileMenuReady === 'true') return;
     nav.hidden = !nav.hidden;
@@ -281,7 +294,7 @@
   document.addEventListener('yupland:motion-change', queuePickaxe);
   document.addEventListener('visibilitychange', queuePickaxe);
   queuePickaxe();
-  setLanguage(new URLSearchParams(window.location.search).get('lang') === 'en' ? 'en' : 'ru');
+  setLanguage(window.location.pathname.endsWith('/en.html') || new URLSearchParams(window.location.search).get('lang') === 'en' ? 'en' : 'ru');
   if (language === 'en' && location.hash === '#creator-vision') {
     requestAnimationFrame(() => document.getElementById('creator-vision')?.scrollIntoView({behavior:'instant'}));
   }
