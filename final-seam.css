@@ -34,22 +34,70 @@
   }
 }
 
-/* The first parchment extends behind the ledge. Its top edge stays under
-   the hero scenery, so only the rock silhouette marks this transition. */
+/* Mask the scenery along the opaque crest of the existing rock artwork. */
+.hero {
+  container-type: inline-size;
+}
+
 .hero-bg,
 .hero-glow {
+  --ledge-offset: 160px;
+  --ledge-width: 100cqw;
+  --ledge-height: calc(var(--ledge-width) * .239765625);
+  --ledge-left: 0px;
+  --ledge-mask: url("assets/hero-ledge-mask-wide.svg");
+  bottom: -40px;
   clip-path: none;
-  mask-image: linear-gradient(#000 0 calc(100% - 135px), transparent 100%);
+  mask-image: linear-gradient(#000, #000), var(--ledge-mask);
+  mask-repeat: no-repeat;
+  mask-size: 100% calc(100% - var(--ledge-offset) + 1px),
+    var(--ledge-width) var(--ledge-height);
+  mask-position: left top, left var(--ledge-left) bottom calc(var(--ledge-offset) - var(--ledge-height));
+}
+
+.hero-yupik {
+  bottom: calc(94px - 8.1cqw);
 }
 
 .how-demo > #how .paper-sheet {
   top: -245px;
 }
 
+@media (min-width: 761px) and (hover: hover) and (pointer: fine) {
+  .hero-yupik {
+    translate: var(--hero-depth-x, 0px) 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero-yupik {
+    bottom: calc(74px - 8.1cqw);
+  }
+
+  .hero-bg,
+  .hero-glow {
+    --ledge-offset: 140px;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero-bg,
+  .hero-glow {
+    --ledge-height: calc(var(--ledge-width) * .239625);
+    --ledge-mask: url("assets/hero-ledge-mask-mobile.svg");
+  }
+}
+
 @media (max-width: 600px) {
   .hero-bg,
   .hero-glow {
-    mask-image: linear-gradient(#000 0 calc(100% - 100px), transparent 100%);
+    --ledge-offset: 135px;
+    --ledge-width: 145cqw;
+    --ledge-left: -20cqw;
+  }
+
+  .hero-yupik {
+    bottom: 5.5%;
   }
 
   .how-demo > #how .paper-sheet {
