@@ -20,3 +20,16 @@
  .news-finale>#news{padding-bottom:150px}
  .news-finale>#final h2{font-size:clamp(42px,10.8vw,62px)}
 }
+
+/* Dark copy needs a light surface while the parchment is still loading. */
+.how-demo > #how[data-paper-loading],
+.news-finale > #news[data-paper-loading],
+#mini[data-paper-loading] {
+  background-color: var(--paper);
+}
+
+@media (max-width: 600px) {
+  .news-finale > #news {
+    padding-top: 176px;
+  }
+}

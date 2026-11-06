@@ -440,3 +440,45 @@ html.mobile-menu-open{overflow:hidden}
 .final{overflow:visible}
 .final>.red-scene-bg,.final.dark-scene::after{top:-240px}
 @media(max-width:600px){.final>.red-scene-bg,.final.dark-scene::after{top:-180px}}
+
+/* Keep Russian accents clear of the adjacent display line. */
+html[lang="ru"] .hero h1,
+html[lang="ru"] .demo h2 {
+  line-height: 1;
+}
+
+@media (min-width: 761px) {
+  html[lang="ru"] .hero h1 {
+    font-size: clamp(88px, 10.2vw, 140px);
+  }
+}
+
+@media (max-width: 600px) {
+  .site-head {
+    gap: 8px;
+  }
+
+  .site-head .logo {
+    font-size: clamp(15px, 4.5vw, 20px);
+    white-space: nowrap;
+  }
+
+  .site-head .head-actions {
+    flex: none;
+    gap: 6px;
+  }
+
+  .site-head .lang {
+    padding-inline: 3px;
+    white-space: nowrap;
+  }
+
+  .site-head .lang span {
+    padding-inline: 3px;
+  }
+
+  .site-head .menu-toggle {
+    width: 44px;
+    height: 44px;
+  }
+}

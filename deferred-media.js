@@ -2,6 +2,12 @@
   const sections = [...document.querySelectorAll('[data-media-pending]')];
   const backgrounds = [...document.querySelectorAll('[data-background-pending]')];
   function load(element) {
+    const paper = element.querySelector('.paper-sheet img');
+    if (paper && element.hasAttribute('data-paper-loading')) {
+      paper.addEventListener('load', () => {
+        if (paper.naturalWidth > 1) delete element.dataset.paperLoading;
+      });
+    }
     element.querySelectorAll('source[data-srcset]').forEach(source => {
       source.srcset = source.dataset.srcset;
       delete source.dataset.srcset;
