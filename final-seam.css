@@ -22,7 +22,7 @@
 }
 
 /* Dark copy needs a light surface while the parchment is still loading. */
-.how-demo > #how[data-paper-loading],
+.how-demo > #how[data-paper-loading] .paper-sheet,
 .news-finale > #news[data-paper-loading],
 #mini[data-paper-loading] {
   background-color: var(--paper);
@@ -31,5 +31,28 @@
 @media (max-width: 600px) {
   .news-finale > #news {
     padding-top: 176px;
+  }
+}
+
+/* The first parchment extends behind the ledge. Its top edge stays under
+   the hero scenery, so only the rock silhouette marks this transition. */
+.hero-bg,
+.hero-glow {
+  clip-path: none;
+  mask-image: linear-gradient(#000 0 calc(100% - 135px), transparent 100%);
+}
+
+.how-demo > #how .paper-sheet {
+  top: -245px;
+}
+
+@media (max-width: 600px) {
+  .hero-bg,
+  .hero-glow {
+    mask-image: linear-gradient(#000 0 calc(100% - 100px), transparent 100%);
+  }
+
+  .how-demo > #how .paper-sheet {
+    top: -210px;
   }
 }
