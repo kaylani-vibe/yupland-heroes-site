@@ -89,8 +89,9 @@
   function sync() {
     if (!motionAllowed()) { stop(); return; }
     startBreeze();
+    if (!base.complete || !base.naturalWidth) return;
     eyelids.forEach(image => {
-      if (!image.getAttribute('src')) image.src = window.matchMedia('(max-width:700px)').matches ? (image.dataset.blinkMobileSrc || image.dataset.blinkSrc) : image.dataset.blinkSrc;
+      if (!image.getAttribute('src')) image.src = image.dataset.blinkSrc;
     });
     schedule();
   }

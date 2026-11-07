@@ -3,26 +3,27 @@
   const map = document.querySelector('.map-explorer');
   const copy = document.getElementById('map-detail');
   if (!map || !copy) return;
+  const image = map.querySelector('img');
+  const unavailable = map.querySelector('.map-unavailable');
   const points = [...map.querySelectorAll('[data-map-place]')];
   let selected = null;
   const content = {
     ru: {
-      intro: 'Открывай карту, исследуй новые места и ищи дорогу к следующему испытанию.',
-      hint: 'Выбери отметку на карте', shortHint: 'Выбери отметку',
+      intro: 'Открывай новые земли, рыбачь, ищи клады и прячь свои.',
+      label: 'Карта Юпленда',
       forest: ['Леса', 'Исследуй зелёные долины и леса Юпленда.'],
       castle: ['Замок', 'Твой дом и отправная точка для новых приключений.']
     },
     en: {
-      intro: 'Open the map, explore new places and find your next challenge.',
-      hint: 'Choose a point on the map', shortHint: 'Choose a point',
+      intro: 'Discover new lands, go fishing, hunt for treasure, and hide your own.',
+      label: 'Map of Yupland',
       forest: ['Forests', 'Explore Yupland’s green valleys and forests.'],
       castle: ['Castle', 'Your home and starting point for new adventures.']
     }
   };
   const render = () => {
     const text = content[document.documentElement.lang === 'en' ? 'en' : 'ru'];
-    map.setAttribute('aria-label', text.hint);
-    map.querySelector('.map-hint').textContent = text.shortHint;
+    map.setAttribute('aria-label', text.label);
     points.forEach(button => {
       const key = button.dataset.mapPlace;
       button.setAttribute('aria-label', text[key][0]);
@@ -47,5 +48,10 @@
   });
   new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   render();
-  map.classList.add('map-ready');
+  const updateAvailability = () => {
+    map.classList.toggle('map-ready', image.dataset.mediaState === 'ready');
+    unavailable.hidden = image.dataset.mediaState !== 'failed';
+  };
+  image.addEventListener('yupland:media-state', updateAvailability);
+  updateAvailability();
 })();
