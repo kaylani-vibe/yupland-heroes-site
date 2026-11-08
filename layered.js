@@ -9,15 +9,15 @@
     return;
   }
   const en = {
-    skip:'Skip to content',openGame:'Open the game',navHow:'How to play',navDemo:'Demo',navWorld:'World',navMini:'Excavations',navGuides:'Guides',navNews:'News',
+    skip:'Skip to content',openGame:'Open the game',navHow:'How to play',navDemo:'Demo',navWorld:'World',navMini:'Crown',navGuides:'Guides',navNews:'News',
     heroKicker:'ADVENTURE',hero1:'A WORLD',hero2:'AWAITS',hero3:'A HERO',heroDescription:'Choose your own path. Explore the world, develop your hero, trade, and build.',playDemo:'Play the demo',
     mapUnavailable:'Map temporarily unavailable',howKicker:'HOW IT WORKS',how1:'CHOOSE A HERO.',how2:'EXPLORE THE WORLD.',howIntro:'Decide how you want to live in Yupland: where to go, what to build up, and what to do today.',
     step1:'CHOOSE A HERO',step1Copy:'Start with Yupik, Kaban, or Drakoshka and develop your hero.',step2:'EXPLORE THE WORLD',step2Copy:'Discover new lands, go fishing, hunt for treasure, and hide your own.',step3:'PLAY YOUR WAY',step3Copy:'Build up your castle, take on bosses, or gather resources in the mines.',
-    guidesKicker:'FIELD GUIDE',guidesTitle1:'A GUIDE',guidesTitle2:'TO THE WORLD',guidesBlurb:'Learn how to move your hero, collect finds, and fight in the demo.',openGuides:'First steps',guideDialogTitle:'FIRST STEPS',guideDialogIntro:'Begin with a short raid: try moving, collecting finds and fighting. Then explore the world and try excavations.',tryExcavations:'Try excavations',
+    guidesKicker:'FIELD GUIDE',guidesTitle1:'A GUIDE',guidesTitle2:'TO THE WORLD',guidesBlurb:'Learn how to move your hero, collect finds, and fight in the demo.',openGuides:'First steps',guideDialogTitle:'FIRST STEPS',guideDialogIntro:'Begin with a short raid: try moving, collecting finds and fighting. Then bring down three crowns in the mini-game.',tryCrownPuzzle:'Play the crown puzzle',
     demoKicker:'PLAY RIGHT HERE',demo1:'YOUR',demo2:'FIRST',demo3:'RAID',demoBlurb:'Move · Collect · Fight',startDemo:'Start the demo',
     worldKicker:'A VAST WORLD',world1:'YOUR',world2:'PATH IN',world3:'YUPLAND',worldBlurb:'There is plenty to do between expeditions. Trade, make your castle your own, and get ready for your next adventure.',
     featureHero:'HEROES',featureHeroCopy:'Choose a hero and develop them at your own pace.',featureWorld:'WORLD',featureWorldCopy:'New lands, fishing spots, and hidden treasures.',featureCastle:'CASTLE',featureCastleCopy:'Build and make your castle your own.',
-    miniKicker:'MINI-GAME',mini1:'TRY',mini2:'EXCAVATIONS',miniBlurb:'A short game right here in your browser. Help Yupik find what is hidden underground.',tryMini:'Try it',
+    miniKicker:'MINI-GAME',mini1:'CROWN OF THE',mini2:'BUCKWHEAT',mini3:'KINGDOM',miniBlurb:'Match pieces and bring three crowns down to the exits in 30 moves.',tryMini:'Play the demo',
     newsKicker:'WORLD NEWS',newsTitle1:'CHRONICLES OF',newsTitle2:'YUPLAND',newsIntro:'World news, hero stories, and newspaper issues. Read the Heroes Gazette and follow events across Yupland.',latestIssue:'31 OCTOBER 2026 · LATEST ISSUE',readIssue:'Read the issue',archiveTitle:'ALL ISSUES',dailyTitle:'DAILY BULLETIN',dailyIntro:'Short news from the world of Yupland.',weeklyTitle:'WEEKLY GAZETTE',weeklyIntro:'Longer stories and highlights from Yupland.',issue31:'31 OCTOBER',issue30:'30 OCTOBER',issue29:'29 OCTOBER',spread1:'Spread 1',spread2:'Spread 2',
     finalKicker:'JOIN THE GAME',final1:'YOUR',final2:'ADVENTURE',final3:'STARTS',final4:'HERE',openTelegram:'Open the game in Telegram',
     launchTitle:'YOUR ADVENTURE',launchIntro:'Choose how you want to play.',launchOnline:'Play online',launchTelegram:'In Telegram',launchTelegramCopy:'Open the game bot in Telegram.',launchBrowser:'In your browser',launchBrowserCopy:'Go to the game website.',launchDownloads:'Download for your computer',launchPreparing:'This version is being prepared.',launchSoon:'Coming soon',launchDownloadNote:'Official downloads and installation instructions will appear here when the versions are available. You can play online now.',launchRecommended:'Recommended for you',
@@ -57,7 +57,7 @@
     langButton.setAttribute('aria-label', next === 'ru' ? 'Переключить на английский' : 'Switch language to Russian');
     menuButton.setAttribute('aria-label', next === 'ru' ? 'Открыть меню' : 'Open menu');
     document.querySelector('.raid-trigger').setAttribute('aria-label', next === 'ru' ? 'Играть в первый рейд' : 'Play the first raid');
-    document.querySelector('.mini-trigger').setAttribute('aria-label', next === 'ru' ? 'Играть в раскопки' : 'Play excavations');
+    document.querySelector('.mini-trigger').setAttribute('aria-label', next === 'ru' ? 'Играть в «Корону гречневого королевства»' : 'Play Crown of the Buckwheat Kingdom');
     document.querySelector('.news-paper').setAttribute('aria-label', next === 'ru' ? 'Открыть газету за 31 октября 2026 года' : 'Open the newspaper from 31 October 2026');
     document.getElementById('close-guide').setAttribute('aria-label', next === 'ru' ? 'Закрыть путеводитель' : 'Close the field guide');
     document.getElementById('close-launch').setAttribute('aria-label', next === 'ru' ? 'Закрыть выбор способа игры' : 'Close game options');
@@ -137,6 +137,10 @@
   function updateDemoStatusText() {
     const failed = dialog.dataset.state === 'error';
     playStatusTitle.textContent = language === 'ru' ? (failed ? 'Не удалось загрузить игру' : 'Загружаем приключение') : en[failed ? 'demoFailed' : 'demoLoading'];
+    if (failed && dialog.dataset.mode === 'mini') {
+      playStatusCopy.textContent = language === 'ru' ? 'Попробуй загрузить игру ещё раз.' : 'Try loading the game again.';
+      return;
+    }
     playStatusCopy.textContent = language === 'ru' ? (failed ? 'Попробуй ещё раз или открой полную игру.' : 'Сейчас здесь появится игровое поле.') : en[failed ? 'demoFailedCopy' : 'demoLoadingCopy'];
   }
   function setDemoState(state) {
@@ -160,18 +164,21 @@
     demoSession = `${Date.now()}-${++demoAttempt}`;
     setDemoState('loading');
     const mode = dialog.dataset.mode;
-    frame.src = 'experience.html?v=20261105-light-3&embed=' + mode + '&lang=' + language + '&session=' + encodeURIComponent(demoSession) + '#' + (mode === 'mini' ? 'minigame' : 'demo');
+    const params = new URLSearchParams({lang: language, session: demoSession});
+    frame.src = mode === 'mini'
+      ? 'demos/buckwheat/index.html?' + params
+      : 'experience.html?v=20261105-light-3&embed=demo&' + params + '#demo';
     demoTimeout = window.setTimeout(failDemo, 15000);
   }
-  document.querySelectorAll('[data-play]').forEach(button => button.addEventListener('click', () => {
-    const mode = button.dataset.play;
+  function openDemo(mode, trigger) {
     if (mode === 'demo' && document.documentElement.dataset.raidSlotReady === 'true') return;
-    returnFocus = button;
+    returnFocus = trigger;
     dialog.dataset.mode = mode;
-    dialogTitle.textContent = mode === 'mini' ? (language === 'ru' ? 'РАСКОПКИ' : 'EXCAVATIONS') : (language === 'ru' ? 'ПЕРВЫЙ РЕЙД' : 'FIRST RAID');
+    dialogTitle.textContent = mode === 'mini' ? (language === 'ru' ? 'КОРОНА ГРЕЧНЕВОГО КОРОЛЕВСТВА' : 'CROWN OF THE BUCKWHEAT KINGDOM') : (language === 'ru' ? 'ПЕРВЫЙ РЕЙД' : 'FIRST RAID');
     dialog.showModal();
     loadDemo();
-  }));
+  }
+  document.querySelectorAll('[data-play]').forEach(button => button.addEventListener('click', () => openDemo(button.dataset.play, button)));
   document.getElementById('play-retry').addEventListener('click', () => { loadDemo(); document.getElementById('close-dialog').focus(); });
   document.getElementById('play-full-game').addEventListener('click', () => {
     const origin = returnFocus;
@@ -186,7 +193,9 @@
       setDemoState('ready');
     }
     if (dialog.dataset.state !== 'ready') return;
-    if (event.data.type === 'yupland:open-game') {
+    if (event.data.type === 'yupland:demo-close' && dialog.dataset.mode === 'mini') {
+      dialog.close();
+    } else if (event.data.type === 'yupland:open-game' && dialog.dataset.mode !== 'mini') {
       const origin = returnFocus;
       dialog.close();
       openLaunch(origin);
@@ -206,12 +215,13 @@
   });
   guideOpen.addEventListener('click', () => { guideReturnFocus = guideOpen; guideDialog.showModal(); });
   document.getElementById('close-guide').addEventListener('click', () => guideDialog.close());
-  guideDialog.addEventListener('close', () => guideReturnFocus?.focus());
+  guideDialog.addEventListener('close', () => { if (!dialog.open) guideReturnFocus?.focus(); });
   guideDialog.addEventListener('click', event => { if (event.target === guideDialog) guideDialog.close(); });
   guideDialog.querySelectorAll('[data-guide-play]').forEach(button => button.addEventListener('click', () => {
     const mode = button.dataset.guidePlay;
     guideDialog.close();
-    document.querySelector('[data-play="' + mode + '"]').click();
+    if (mode === 'mini') openDemo(mode, guideReturnFocus);
+    else document.querySelector('[data-play="demo"]').click();
   }));
   document.documentElement.classList.add('js');
   const reveals = Array.from(document.querySelectorAll('.reveal'));
@@ -221,79 +231,39 @@
     }), {threshold:.08});
     reveals.forEach(node => observer.observe(node));
   } else reveals.forEach(node => node.classList.add('visible'));
-  const pickaxe = document.querySelector('.mini-pickaxe');
-  const miniSection = document.getElementById('mini');
   const worldSection = document.getElementById('world');
   const worldBackground = worldSection.querySelector('.world-bg');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const movingScenes = new Set();
-  const scenesAvailable = 'IntersectionObserver' in window;
-  const motionAllowed = () => !reducedMotion.matches && document.documentElement.dataset.motion !== 'reduced' && !document.hidden;
-  const sceneVisible = scene => !scenesAvailable || movingScenes.has(scene);
-  let pickaxeFrame = 0;
-  let pickaxeProgress = null;
-  let lastPickaxeFrame = 0;
-  function updatePickaxe(time) {
-    pickaxeFrame = 0;
-    if (!motionAllowed() || (!sceneVisible(worldSection) && !sceneVisible(miniSection))) {
-      pickaxe.style.removeProperty('--pickaxe-x');
-      pickaxe.style.removeProperty('--pickaxe-angle');
+  let worldVisible = !('IntersectionObserver' in window);
+  let worldFrame = 0;
+  function updateWorldShift() {
+    worldFrame = 0;
+    if (!worldVisible || reducedMotion.matches || document.documentElement.dataset.motion === 'reduced' || document.hidden) {
       worldBackground.style.removeProperty('--world-shift');
-      pickaxeProgress = null;
-      lastPickaxeFrame = 0;
       return;
     }
-    if (sceneVisible(worldSection)) {
-    const worldRect = worldSection.getBoundingClientRect();
-    const mobileWorld = window.innerWidth <= 600;
-    const worldLimit = mobileWorld ? 24 : 60;
-    const worldDistance = window.innerHeight / 2 - (worldRect.top + worldRect.height / 2);
-    const worldShift = Math.max(-worldLimit, Math.min(worldLimit, worldDistance * (mobileWorld ? .07 : .14)));
-    worldBackground.style.setProperty('--world-shift', `${worldShift.toFixed(1)}px`);
-    } else worldBackground.style.removeProperty('--world-shift');
-    if (!sceneVisible(miniSection)) {
-      pickaxeProgress = null;
-      lastPickaxeFrame = 0;
-      return;
-    }
-    const section = miniSection.getBoundingClientRect();
-    const progress = Math.min(1, Math.max(0, (window.innerHeight - section.top) / (window.innerHeight + section.height)));
-    if (pickaxeProgress === null) pickaxeProgress = progress;
-    else {
-      const elapsed = Math.min(64, time - (lastPickaxeFrame || time));
-      pickaxeProgress += (progress - pickaxeProgress) * (1 - Math.exp(-elapsed / 105));
-      if (Math.abs(progress - pickaxeProgress) < .001) pickaxeProgress = progress;
-    }
-    lastPickaxeFrame = time;
+    const rect = worldSection.getBoundingClientRect();
     const mobile = window.innerWidth <= 600;
-    const travel = mobile ? 125 : Math.min(300, miniSection.clientWidth * .24);
-    pickaxe.style.setProperty('--pickaxe-x', `${Math.round((mobile ? -25 : -30) + travel * pickaxeProgress)}px`);
-    pickaxe.style.setProperty('--pickaxe-angle', `${(-19 + 10 * pickaxeProgress).toFixed(1)}deg`);
-    if (pickaxeProgress !== progress) pickaxeFrame = window.requestAnimationFrame(updatePickaxe);
+    const limit = mobile ? 24 : 60;
+    const distance = window.innerHeight / 2 - (rect.top + rect.height / 2);
+    const shift = Math.max(-limit, Math.min(limit, distance * (mobile ? .07 : .14)));
+    worldBackground.style.setProperty('--world-shift', `${shift.toFixed(1)}px`);
   }
-  function queuePickaxe() {
-    if (!motionAllowed() || (!sceneVisible(worldSection) && !sceneVisible(miniSection))) {
-      if (pickaxeFrame) window.cancelAnimationFrame(pickaxeFrame);
-      pickaxeFrame = 0;
-      updatePickaxe(0);
-      return;
-    }
-    if (!pickaxeFrame) pickaxeFrame = window.requestAnimationFrame(updatePickaxe);
+  function queueWorldShift() {
+    if (!worldFrame) worldFrame = window.requestAnimationFrame(updateWorldShift);
   }
-  if (scenesAvailable) {
-    const sceneObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => entry.isIntersecting ? movingScenes.add(entry.target) : movingScenes.delete(entry.target));
-      queuePickaxe();
-    });
-    sceneObserver.observe(worldSection);
-    sceneObserver.observe(miniSection);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      worldVisible = entry.isIntersecting;
+      queueWorldShift();
+    }).observe(worldSection);
   }
-  window.addEventListener('scroll', queuePickaxe, { passive: true });
-  window.addEventListener('resize', queuePickaxe);
-  reducedMotion.addEventListener('change', queuePickaxe);
-  document.addEventListener('yupland:motion-change', queuePickaxe);
-  document.addEventListener('visibilitychange', queuePickaxe);
-  queuePickaxe();
+  window.addEventListener('scroll', queueWorldShift, { passive: true });
+  window.addEventListener('resize', queueWorldShift);
+  reducedMotion.addEventListener('change', queueWorldShift);
+  document.addEventListener('yupland:motion-change', queueWorldShift);
+  document.addEventListener('visibilitychange', queueWorldShift);
+  queueWorldShift();
   setLanguage(window.location.pathname.endsWith('/en.html') || new URLSearchParams(window.location.search).get('lang') === 'en' ? 'en' : 'ru');
   if (language === 'en' && location.hash === '#creator-vision') {
     requestAnimationFrame(() => document.getElementById('creator-vision')?.scrollIntoView({behavior:'instant'}));

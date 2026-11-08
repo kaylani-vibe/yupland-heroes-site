@@ -23,7 +23,9 @@
     if (launch) launchPlacement = placement(launch);
     const demo = element.closest('[data-play]');
     if (demo && ['demo', 'mini'].includes(demo.dataset.play)) {
-      capture('site_demo_started', {demo_type: demo.dataset.play === 'mini' ? 'excavations' : 'raid', placement: placement(demo)});
+      capture('site_demo_started', {demo_type: demo.dataset.play === 'mini' ? 'buckwheat_crown' : 'raid', placement: placement(demo)});
+    } else if (element.closest('[data-guide-play="mini"]')) {
+      capture('site_demo_started', {demo_type: 'buckwheat_crown', placement: 'guides'});
     }
     const option = element.closest('.launch-option');
     if (option?.classList.contains('launch-telegram')) {

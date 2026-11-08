@@ -43,10 +43,9 @@ html[lang=en] .hero h1{font-size:clamp(64px,8vw,115px)}html[lang=en] .how h2{fon
 /* Interlocking scene edges keep the page reading as one continuous landing. */
 .section-rocks{left:0;top:calc(100% - 16.7vw);bottom:auto;width:100%;height:auto;filter:none}
 .mini{z-index:5;margin-top:-42px}
-.mini-pickaxe{position:absolute;z-index:5;left:2%;bottom:-54px;width:clamp(130px,17vw,260px);height:auto;pointer-events:none;transform:rotate(-16deg);filter:drop-shadow(0 8px 9px #0009)}
 .final{margin-top:-45px;padding-top:140px}
-@media(max-width:760px){.mini{margin-top:-26px}.mini-pickaxe{width:160px;bottom:-34px}.final{margin-top:-30px;padding-top:110px}}
-@media(max-width:600px){.mini-pickaxe{width:120px;left:-7%;bottom:-30px}.final{padding-top:115px}}
+@media(max-width:760px){.mini{margin-top:-26px}.final{margin-top:-30px;padding-top:110px}}
+@media(max-width:600px){.final{padding-top:115px}}
 
 /* Longer approved wordmark stays clear of the language/menu controls. */
 .logo{font-size:clamp(24px,2.35vw,34px)}
@@ -154,7 +153,6 @@ html[lang=en] .hero h1{font-size:clamp(64px,8vw,115px)}html[lang=en] .how h2{fon
 .guide-art{position:relative;top:-28px;margin-bottom:-28px}
 
 /* Newspaper feature and two editorial rubrics. */
-.mini-pickaxe{bottom:20px}
 .news-heading{display:block;margin-bottom:24px}
 .news-heading .eyebrow{margin-bottom:13px}
 .news-heading h2{font-size:clamp(58px,6.3vw,93px)}
@@ -180,7 +178,7 @@ html[lang=en] .hero h1{font-size:clamp(64px,8vw,115px)}html[lang=en] .how h2{fon
 .news-archive-list a{padding:9px 3px;border-bottom:1px solid #76583570;color:#17120e;font-size:14px;text-decoration:none}
 .news-archive-list a:hover{text-decoration:underline}
 @media(max-width:760px){.news-layout{grid-template-columns:1fr}.news-rail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.news-archive{grid-column:1/-1}.news-rubric img{height:95px}.news-feature-foot{bottom:12px;left:-5px}}
-@media(max-width:600px){.guide-teaser{margin-top:9px;padding-top:4px}.guide-art{top:-13px;margin:-13px -7% -13px}.mini-pickaxe{bottom:14px}.news-heading h2{font-size:clamp(49px,12vw,65px)}.news-heading>p:last-child{font-size:15px}.news-rail{gap:12px}.news-rubric h3{font-size:22px}.news-rubric p{font-size:14px}.news-rubric img{height:78px}.news-feature-foot{position:static;margin-top:12px}.news-feature-foot>span{font-size:14px}}
+@media(max-width:600px){.guide-teaser{margin-top:9px;padding-top:4px}.guide-art{top:-13px;margin:-13px -7% -13px}.news-heading h2{font-size:clamp(49px,12vw,65px)}.news-heading>p:last-child{font-size:15px}.news-rail{gap:12px}.news-rubric h3{font-size:22px}.news-rubric p{font-size:14px}.news-rubric img{height:78px}.news-feature-foot{position:static;margin-top:12px}.news-feature-foot>span{font-size:14px}}
 
 /* The three how-to illustrations must fit fully; the first sits over the
    watercolor wash visible in the approved reference. */
@@ -208,10 +206,16 @@ html[lang=en] .hero h1{font-size:clamp(64px,8vw,115px)}html[lang=en] .how h2{fon
 /* Show the full painted edge and blend its transparent underside into the feature rail. */
 .features::before{z-index:0;top:-55px;height:140px;background-image:url("assets/transition-red-band-lite.webp"),linear-gradient(to bottom,transparent,#080808 40%);background-size:100% 100%,100% 100%;background-position:center;background-repeat:no-repeat}
 .features article{position:relative;z-index:1}
-/* Scroll progress drives the pickaxe, while the action buttons remain above it. */
-.mini-pickaxe{z-index:1;left:2%;bottom:-35px;width:clamp(140px,15vw,220px);transform:translate3d(var(--pickaxe-x,0px),0,0) rotate(var(--pickaxe-angle,-16deg));will-change:transform}
-@media(max-width:600px){.mini-pickaxe{z-index:5;left:-2%;bottom:0;width:120px}.mini .actions{position:relative;z-index:6}}
-@media(prefers-reduced-motion:reduce){.mini-pickaxe{transform:rotate(-16deg);will-change:auto}}
+
+@media (max-width: 760px) {
+  .features::before {
+    top: auto;
+    bottom: 100%;
+    height: clamp(32px, 10vw, 50px);
+  }
+}
+
+@media(max-width:600px){.mini .actions{position:relative;z-index:6}}
 /* Small interaction states keep the established visual language intact. */
 .btn,.preview-window,.menu-toggle{transition:transform .35s cubic-bezier(.22,1,.36,1),filter .3s cubic-bezier(.22,1,.36,1),box-shadow .35s cubic-bezier(.22,1,.36,1)}
 .btn:active{transform:translateY(1px) scale(.98);filter:brightness(.96)}
@@ -406,7 +410,6 @@ html[data-motion="reduced"] *,html[data-motion="reduced"] *::before,html[data-mo
 html[data-motion="reduced"] .reveal{opacity:1!important;transform:none!important}
 html[data-motion="reduced"] .hero-yupik{transform:none!important;scale:1;rotate:0deg;translate:none}
 html[data-motion="reduced"] .hero-bg::before,html[data-motion="reduced"] .world-bg{transform:none!important;will-change:auto}
-html[data-motion="reduced"] .mini-pickaxe{transform:rotate(-16deg)!important;will-change:auto}
 html[data-motion="reduced"] :is(.btn:hover,.btn:active,.preview-window:hover,.preview-window:active,.news-paper:hover,.launch-option:hover){transform:none}
 
 html[data-page-hidden="true"] *,html[data-page-hidden="true"] *::before,html[data-page-hidden="true"] *::after{animation-play-state:paused!important}
@@ -535,4 +538,55 @@ html.defer-art .step-art:not(:has(img[data-media-state="ready"]))::before {
 
 .map-unavailable[hidden] {
   display: none;
+}
+
+/* Keep the crown title and its widescreen preview within the mini-game grid. */
+#mini-title {
+  font-size: clamp(28px, 4.1vw, 67px);
+  line-height: 1;
+}
+
+#mini-title span {
+  display: block;
+}
+
+#mini .mini-trigger picture img {
+  aspect-ratio: 16 / 9;
+}
+
+.play-dialog[data-mode="mini"] {
+  width: min(820px, calc(100vw - 16px));
+  height: min(860px, calc(100dvh - 16px));
+}
+
+.play-dialog[data-mode="mini"] > header {
+  height: 48px;
+}
+
+.play-dialog[data-mode="mini"] #dialog-title {
+  font-size: clamp(13px, 2.6vw, 24px);
+  line-height: 1.1;
+}
+
+.play-dialog[data-mode="mini"] .play-stage {
+  height: calc(100% - 48px);
+}
+
+.play-dialog[data-mode="mini"] #play-full-game {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  #mini-title {
+    font-size: clamp(33px, 9.8vw, 56px);
+  }
+}
+
+@media (max-width: 600px) {
+  .play-dialog[data-mode="mini"] {
+    width: 100vw;
+    height: 100dvh;
+    border: 0;
+    border-radius: 0;
+  }
 }
