@@ -3,8 +3,9 @@
   const nav = document.getElementById('nav');
   const home = nav?.parentElement;
   const main = document.querySelector('main');
-  const header = document.querySelector('.site-head');
-  if (!nav || !home || !main || !header) return;
+  const header = document.querySelector('.hero-header');
+  const hero = header?.closest('.hero');
+  if (!nav || !home || !main || !header || !hero) return;
   const desktop = window.matchMedia('(min-width: 761px)');
   const links = [...nav.querySelectorAll('a[href^="#"]')];
   const sections = [...document.querySelectorAll('#how,#guides,#demo,#world,#mini,#news')];
@@ -52,31 +53,27 @@
     };
     observeChapters();
     window.addEventListener('resize', observeChapters);
-    new IntersectionObserver(entries => {
-      headerVisible = entries[0].isIntersecting;
+    // The hero releases its sticky header at the section boundary. Move the
+    // chapter row out before the foreground of the next section covers it.
+    new IntersectionObserver(([entry]) => {
+      const fullyVisible = entry.isIntersecting && entry.intersectionRatio >= .99;
+      if (headerVisible === fullyVisible) return;
+      headerVisible = fullyVisible;
       position();
-    }, {threshold:0}).observe(header);
+    }, {threshold:.99}).observe(header);
+
+    const headerStart = document.createElement('span');
+    headerStart.className = 'hero-header-start';
+    headerStart.setAttribute('aria-hidden', 'true');
+    hero.prepend(headerStart);
+    new IntersectionObserver(([entry]) => {
+      header.toggleAttribute('data-pinned', entry.boundingClientRect.bottom <= 0);
+    }).observe(headerStart);
   }
   const label = () => nav.setAttribute('aria-label', document.documentElement.lang === 'en' ? 'Page chapters' : 'Разделы сайта');
   new MutationObserver(label).observe(document.documentElement, {attributes:true,attributeFilter:['lang']});
   desktop.addEventListener('change', position);
   document.addEventListener('yupland:nav-resize', position);
-  let previousScroll = Math.max(0, window.scrollY);
-  let topReturnTimer;
-  window.addEventListener('scroll', () => {
-    const scroll = Math.max(0, window.scrollY);
-    if (scroll === previousScroll) return;
-    clearTimeout(topReturnTimer);
-    if (scroll > 0 && scroll < previousScroll && scroll < header.offsetHeight) {
-      // Finish an upward gesture that would otherwise leave the first header partly cut off.
-      topReturnTimer = window.setTimeout(() => {
-        if (window.scrollY > 0 && window.scrollY < header.offsetHeight) {
-          window.scrollTo({top:0,behavior:'instant'});
-        }
-      }, 140);
-    }
-    previousScroll = scroll;
-  }, {passive:true});
   label();
   position();
 })();

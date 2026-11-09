@@ -449,13 +449,22 @@ html[data-page-hidden="true"] *,html[data-page-hidden="true"] *::before,html[dat
 
 html:not([data-motion-ready="true"]) [data-motion-toggle]{display:none}
 
+/* Keep the entire header in view until the hero scrolls past it. `clip`
+   keeps art inside the landing width without turning it into a scroller.
+   The hero itself remains open so its rocks can overlap the next section. */
+.landing{overflow:clip}
+.hero-header{position:sticky;top:0;z-index:8}
+.hero-header[data-pinned]{background:#0b0808}
+.hero-header-start{position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none}
+
 /* One desktop chapter row becomes a floating rail after the header leaves. */
 @media(min-width:761px){
+ .hero-header{padding-bottom:44px}
  .site-head .nav,.site-head .nav[hidden]{display:flex;flex-direction:row;align-items:center;gap:24px;position:absolute;top:74px;left:0;right:auto;width:max-content;max-width:100%;min-width:0;padding:0;border:0;background:transparent;box-shadow:none}
  .nav a{display:flex;align-items:center;min-height:44px;padding:8px 0;border-bottom:2px solid transparent;font-size:14px;line-height:1.2;white-space:nowrap}
  .nav a:hover{background:transparent;color:#ffe500}.nav a[aria-current="location"]{color:#ffe500;border-bottom-color:#ffe500}
  .nav [data-launch]{display:none}
- .hero-copy{padding-top:clamp(64px,5vw,78px)}
+ .hero-copy{padding-top:calc(clamp(64px,5vw,78px) - 44px)}
  #nav[data-floating="true"]{display:flex;flex-direction:row;align-items:center;gap:24px;position:fixed;z-index:100;top:10px;left:50%;right:auto;width:max-content;max-width:calc(100% - 32px);min-width:0;padding:0 16px;transform:translateX(-50%);border:1px solid #ffffff40;border-radius:3px;background:#090909f2;box-shadow:0 4px 16px #0005}
  #how,#guides,#demo,#world,#mini,#news{scroll-margin-top:74px}
 }
