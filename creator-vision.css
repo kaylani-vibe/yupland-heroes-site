@@ -92,6 +92,7 @@ html[lang="en"] .news-finale::before{background-size:auto,cover;background-posit
 .creator-description{font-size:clamp(16px,1.4vw,20px);line-height:1.4;max-width:440px}
 .creator-roadmap h3{font-size:14px;line-height:1.3;font-weight:600}
 .creator-roadmap p{font-size:clamp(18px,1.65vw,23px);line-height:1.35}
+.creator-roadmap p + p { margin-top: .5em; }
 .creator-proof strong{font-size:clamp(26px,2.6vw,36px);line-height:1.25;letter-spacing:-.015em}
 .creator-proof p+p{font-size:clamp(14px,1.3vw,18px);line-height:1.5}
 .creator-proof{padding-top:26px}
