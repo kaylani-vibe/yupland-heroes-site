@@ -9,15 +9,15 @@
     return;
   }
   const en = {
-    skip:'Skip to content',openGame:'Open the game',navHow:'How to play',navDemo:'Demo',navWorld:'World',navMini:'Crown',navGuides:'Guides',navNews:'News',
+    skip:'Skip to content',openGame:'Open the game',navHow:'How to play',navDemo:'Demo',navWorld:'World',navMini:'Crown',navGuides:'Guides (RU)',navNews:'News',
     heroKicker:'ADVENTURE',hero1:'A WORLD',hero2:'AWAITS',hero3:'A HERO',heroDescription:'Choose your own path. Explore the world, develop your hero, trade, and build.',playDemo:'Play the demo',
     mapUnavailable:'Map temporarily unavailable',howKicker:'HOW IT WORKS',how1:'CHOOSE A HERO.',how2:'EXPLORE THE WORLD.',howIntro:'Decide how you want to live in Yupland: where to go, what to build up, and what to do today.',
     step1:'CHOOSE A HERO',step1Copy:'Start with Yupik, Kaban, or Drakoshka and develop your hero.',step2:'EXPLORE THE WORLD',step2Copy:'Discover new lands, go fishing, hunt for treasure, and hide your own.',step3:'PLAY YOUR WAY',step3Copy:'Build up your castle, take on bosses, or gather resources in the mines.',
-    guidesKicker:'FIELD GUIDE',guidesTitle1:'A GUIDE',guidesTitle2:'TO THE WORLD',guidesBlurb:'Learn how to move your hero, collect finds, and fight in the demo.',openGuides:'First steps',guideDialogTitle:'FIRST STEPS',guideDialogIntro:'Begin with a short raid: try moving, collecting finds and fighting. Then bring down three crowns in the mini-game.',tryCrownPuzzle:'Play the crown puzzle',
+    guidesKicker:'FIELD GUIDE',guidesTitle1:'A GUIDE',guidesTitle2:'TO THE WORLD',guidesBlurb:'Learn how to move your hero, read the map, and prepare for an expedition.',allGuides:'All guides (RU)',openGuides:'First steps',
     demoKicker:'PLAY RIGHT HERE',demo1:'YOUR',demo2:'FIRST',demo3:'RAID',demoBlurb:'Move · Collect · Fight',startDemo:'Start the demo',
     worldKicker:'A VAST WORLD',world1:'YOUR',world2:'PATH IN',world3:'YUPLAND',worldBlurb:'There is plenty to do between expeditions. Trade, make your castle your own, and get ready for your next adventure.',
     featureHero:'HEROES',featureHeroCopy:'Choose a hero and develop them at your own pace.',featureWorld:'WORLD',featureWorldCopy:'New lands, fishing spots, and hidden treasures.',featureCastle:'CASTLE',featureCastleCopy:'Build and make your castle your own.',
-    miniKicker:'MINI-GAME',mini1:'CROWN OF THE',mini2:'BUCKWHEAT',mini3:'KINGDOM',miniBlurb:'Match pieces and bring three crowns down to the exits in 30 moves.',tryMini:'Play the demo',
+    miniKicker:'MINI-GAME',mini1:'CROWN OF THE',mini2:'BUCKWHEAT',mini3:'KINGDOM',miniBlurb:'Match pieces and bring three crowns down to the exits in 30 moves.',tryMini:'Play the demo',playCrownFull:'Play the full game',
     newsKicker:'WORLD NEWS',newsTitle1:'CHRONICLES OF',newsTitle2:'YUPLAND',newsIntro:'World news, hero stories, and newspaper issues. Read the Heroes Gazette and follow events across Yupland.',latestIssue:'31 OCTOBER 2026 · LATEST ISSUE',readIssue:'Read the issue',archiveTitle:'ALL ISSUES',dailyTitle:'DAILY BULLETIN',dailyIntro:'Short news from the world of Yupland.',weeklyTitle:'WEEKLY GAZETTE',weeklyIntro:'Longer stories and highlights from Yupland.',issue31:'31 OCTOBER',issue30:'30 OCTOBER',issue29:'29 OCTOBER',spread1:'Spread 1',spread2:'Spread 2',
     finalKicker:'JOIN THE GAME',final1:'YOUR',final2:'ADVENTURE',final3:'STARTS',final4:'HERE',openTelegram:'Open the game in Telegram',
     launchTitle:'YOUR ADVENTURE',launchIntro:'Choose how you want to play.',launchOnline:'Play online',launchTelegram:'In Telegram',launchTelegramCopy:'Open the game bot in Telegram.',launchBrowser:'In your browser',launchBrowserCopy:'Go to the game website.',launchDownloads:'Download for your computer',launchPreparing:'This version is being prepared.',launchSoon:'Coming soon',launchDownloadNote:'Official downloads and installation instructions will appear here when the versions are available. You can play online now.',launchRecommended:'Recommended for you',
@@ -29,8 +29,6 @@
   const dialog = document.getElementById('play-dialog');
   const frame = document.getElementById('play-frame');
   const dialogTitle = document.getElementById('dialog-title');
-  const guideDialog = document.getElementById('guide-dialog');
-  const guideOpen = document.getElementById('guide-open');
   const launchDialog = document.getElementById('launch-dialog');
   const launchPlatformNote = document.getElementById('launch-platform-note');
   const launchDownloads = document.getElementById('launch-download-options');
@@ -44,7 +42,6 @@
   let demoTimeout;
   let language = 'ru';
   let returnFocus;
-  let guideReturnFocus;
   function setLanguage(next) {
     language = next;
     document.documentElement.lang = next;
@@ -59,7 +56,6 @@
     document.querySelector('.raid-trigger').setAttribute('aria-label', next === 'ru' ? 'Играть в первый рейд' : 'Play the first raid');
     document.querySelector('.mini-trigger').setAttribute('aria-label', next === 'ru' ? 'Играть в «Корону гречневого королевства»' : 'Play Crown of the Buckwheat Kingdom');
     document.querySelector('.news-paper').setAttribute('aria-label', next === 'ru' ? 'Открыть газету за 31 октября 2026 года' : 'Open the newspaper from 31 October 2026');
-    document.getElementById('close-guide').setAttribute('aria-label', next === 'ru' ? 'Закрыть путеводитель' : 'Close the field guide');
     document.getElementById('close-launch').setAttribute('aria-label', next === 'ru' ? 'Закрыть выбор способа игры' : 'Close game options');
     document.getElementById('close-dialog').setAttribute('aria-label', next === 'ru' ? 'Закрыть демо' : 'Close demo');
     document.getElementById('launch-qr-link').setAttribute('aria-label', next === 'ru' ? 'Открыть игрового бота в Telegram' : 'Open the game bot in Telegram');
@@ -200,29 +196,16 @@
       dialog.close();
       openLaunch(origin);
     } else if (event.data.type === 'yupland:open-guide') {
-      const origin = returnFocus;
-      dialog.close();
-      guideReturnFocus = origin;
-      guideDialog.showModal();
+      window.location.assign(new URL('guides/first-outing.html', window.location.href));
     }
   });
   document.getElementById('close-dialog').addEventListener('click', () => dialog.close());
-  dialog.addEventListener('close', () => { window.clearTimeout(demoTimeout); demoSession = ''; frame.removeAttribute('src'); returnFocus?.focus(); });
+  dialog.addEventListener('close', () => { window.clearTimeout(demoTimeout); demoSession = ''; frame.removeAttribute('src'); returnFocus?.focus({preventScroll:true}); });
   dialog.addEventListener('click', event => {
     if (event.target !== dialog) return;
     const bounds = dialog.getBoundingClientRect();
     if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
   });
-  guideOpen.addEventListener('click', () => { guideReturnFocus = guideOpen; guideDialog.showModal(); });
-  document.getElementById('close-guide').addEventListener('click', () => guideDialog.close());
-  guideDialog.addEventListener('close', () => { if (!dialog.open) guideReturnFocus?.focus(); });
-  guideDialog.addEventListener('click', event => { if (event.target === guideDialog) guideDialog.close(); });
-  guideDialog.querySelectorAll('[data-guide-play]').forEach(button => button.addEventListener('click', () => {
-    const mode = button.dataset.guidePlay;
-    guideDialog.close();
-    if (mode === 'mini') openDemo(mode, guideReturnFocus);
-    else document.querySelector('[data-play="demo"]').click();
-  }));
   document.documentElement.classList.add('js');
   const reveals = Array.from(document.querySelectorAll('.reveal'));
   if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

@@ -2,4 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://heroes.yupland.io/</loc></url>
   <url><loc>https://heroes.yupland.io/en.html</loc></url>
+  <url><loc>https://heroes.yupland.io/guides/</loc></url>
+  <url><loc>https://heroes.yupland.io/guides/first-outing.html</loc></url>
+  <url><loc>https://heroes.yupland.io/guides/castle-and-world.html</loc></url>
+  <url><loc>https://heroes.yupland.io/guides/world-panels.html</loc></url>
+  <url><loc>https://heroes.yupland.io/guides/move-the-map.html</loc></url>
+  <url><loc>https://heroes.yupland.io/guides/overview-map.html</loc></url>
+  <url><loc>https://heroes.yupland.io/guides/map-markers.html</loc></url>
+  <url><loc>https://heroes.yupland.io/guides/map-edge.html</loc></url>
+  <url><loc>https://heroes.yupland.io/guides/portal-types.html</loc></url>
+  <url><loc>https://heroes.yupland.io/guides/change-destination.html</loc></url>
+  <url><loc>https://heroes.yupland.io/guides/route-energy.html</loc></url>
+  <url><loc>https://heroes.yupland.io/guides/mounted-travel.html</loc></url>
+  <url><loc>https://heroes.yupland.io/guides/world-weather.html</loc></url>
+  <url><loc>https://heroes.yupland.io/guides/choose-your-hero.html</loc></url>
 </urlset>
