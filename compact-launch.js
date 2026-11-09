@@ -9,9 +9,11 @@
   let beyondHero = false;
   let footerVisible = false;
   let visionVisible = false;
+  let aiArtVisible = false;
   let returnHere = false;
   const update = () => {
     button.hidden = !beyondHero || footerVisible || visionVisible || visiblePrimary.size > 0 ||
+      aiArtVisible ||
       dialogs.some(dialog => dialog.open) || (raid && !raid.hidden);
   };
   new IntersectionObserver(entries => {
@@ -28,6 +30,13 @@
     visionVisible = entries[0].isIntersecting;
     update();
   }, {threshold:0}).observe(vision);
+  const aiArt = document.querySelector('.ai-creation-result');
+  if (aiArt) {
+    new IntersectionObserver(([entry]) => {
+      aiArtVisible = entry.isIntersecting;
+      update();
+    }).observe(aiArt);
+  }
   const footer = document.querySelector('.site-footer');
   if (footer) new IntersectionObserver(entries => {
     footerVisible = entries[0].isIntersecting;

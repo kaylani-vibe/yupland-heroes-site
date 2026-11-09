@@ -1,14 +1,14 @@
 /* A single sheet under both scenes keeps the bottom overlap free of a second seam. */
 .creation-crown {
-  --paper-start: clamp(82px, 11vw, 168px);
+  --paper-start: clamp(98px, 12.6vw, 184px);
   --paper-end: clamp(48px, 7vw, 104px);
   --paper-blend: clamp(8px, 2vw, 28px);
+  --seam-bleed: clamp(60px, 9vw, 112px);
   position: relative;
   isolation: isolate;
   z-index: 5;
   margin-top: -12px;
   color: #17110c;
-
 }
 
 .creation-crown::before {
@@ -49,6 +49,31 @@ html.defer-art .creation-crown[data-deferred-background]::after {
   background-image: none;
 }
 
+/* The stones and upper paper edge are one cutout, so they share a contour. */
+.ai-world-seam {
+  position: absolute;
+  inset: calc(-1 * var(--seam-bleed) / 2) 0 auto;
+  height: calc(var(--paper-start) + var(--seam-bleed));
+  mask-image: linear-gradient(
+    #000 calc(100% - var(--paper-blend) - var(--seam-bleed) / 2),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.ai-world-seam img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.creation-crown:has(.ai-world-seam img[data-media-state="ready"])::before,
+html:not(.defer-art) .creation-crown::before {
+  border-top-width: 0;
+  border-image-slice: 0 0 110;
+}
+
 .ai-creation {
   position: relative;
   z-index: 1;
@@ -61,7 +86,7 @@ html.defer-art .creation-crown[data-deferred-background]::after {
   grid-template-columns: minmax(0, 1fr) minmax(48px, .17fr) minmax(0, 1.13fr);
   grid-template-rows: auto 1fr auto;
   align-items: center;
-  row-gap: clamp(16px, 2.4vw, 34px);
+  row-gap: clamp(20px, 3vw, 44px);
 }
 
 .ai-creation-intro {
@@ -88,6 +113,7 @@ html.defer-art .creation-crown[data-deferred-background]::after {
 
 .ai-creation-idea {
   grid-area: 2 / 1;
+  align-self: start;
   position: relative;
   display: grid;
   align-items: center;
@@ -132,10 +158,10 @@ html.defer-art .creation-crown[data-deferred-background]::after {
 
 .ai-creation-arrow {
   grid-area: 2 / 2;
-  align-self: center;
+  align-self: start;
   position: relative;
   z-index: 1;
-  margin-inline: -12% 0;
+  margin: clamp(28px, 4.3vw, 58px) 0 0 -12%;
   text-align: center;
   color: var(--red);
 }
@@ -150,6 +176,8 @@ html.defer-art .creation-crown[data-deferred-background]::after {
   display: block;
   width: 100%;
   height: auto;
+  transform: rotate(-35deg);
+  transform-origin: right center;
 }
 
 .ai-creation-result {
@@ -230,16 +258,13 @@ html.defer-art .creation-crown[data-deferred-background]::after {
 
 .ai-crown-ledge {
   position: absolute;
-  right: -5%;
-  width: min(40%, 580px);
-  height: clamp(100px, 14vw, 214px);
-  z-index: 1;
-  transform: translateY(-10%);
+  right: -1%;
+  width: min(36%, 540px);
+  height: clamp(290px, 34vw, 490px);
+  z-index: 0;
+  transform: translateY(calc(-72% + 10px));
   pointer-events: none;
-  background: url("assets/world-cliff-lite.webp") 100% 50% / 100% 100% no-repeat;
-  mask-image: linear-gradient(90deg, transparent, #000 38%),
-    linear-gradient(to bottom, #000 38%, transparent 98%);
-  mask-composite: intersect;
+  background: url("assets/ai-crown-rock-ledge.webp") right center / 100% 100% no-repeat;
 }
 
 html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
@@ -252,11 +277,39 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
   padding-top: clamp(42px, 7vw, 104px);
 }
 
+@media (min-width: 761px) {
+  .ai-creation-result {
+    justify-self: end;
+    width: min(109%, 650px);
+    margin-inline: 0 calc(-1 * min(5vw, 80px));
+  }
+
+  .ai-creation-status {
+    padding-inline-end: clamp(100px, 15vw, 232px);
+  }
+}
+
+@media (min-width: 761px) {
+  @container (min-width: 330px) and (max-width: 399px) {
+    .creation-crown .mini-actions {
+      display: grid;
+      grid-template-columns: max-content minmax(0, 1fr);
+      gap: 9px;
+    }
+
+    .creation-crown .mini .mini-actions .btn {
+      padding-inline: 10px;
+      font-size: 15px;
+    }
+  }
+}
+
 @media (max-width: 760px) {
   .creation-crown {
     --paper-start: 78px;
     --paper-end: 62px;
     --paper-blend: 9px;
+    --seam-bleed: 24px;
   }
 
   .creation-crown::before {
@@ -282,11 +335,21 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
   .ai-creation-note-copy p {
     font-size: 19px;
   }
+
+  .ai-creation-arrow {
+    margin-top: 30px;
+  }
+
+  .ai-crown-ledge {
+    width: 36%;
+    height: 112px;
+    transform: translateY(-8%);
+  }
 }
 
 @media (max-width: 640px) {
   .creation-crown {
-    --paper-start: 53px;
+    --paper-start: 68px;
   }
 
   .ai-creation-layout {
@@ -356,10 +419,10 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
   }
 
   .ai-crown-ledge {
-    right: -9%;
-    width: 23%;
-    height: 134px;
-    transform: translateY(-12%);
+    right: -3%;
+    width: 39%;
+    height: 104px;
+    transform: translateY(-15%);
   }
 
   .creation-crown .mini {
