@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "Caveat";
+  src: url("assets/caveat-idea-lettering.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
 /* A single sheet under both scenes keeps the bottom overlap free of a second seam. */
 .creation-crown {
   --paper-start: clamp(98px, 12.6vw, 184px);
@@ -142,18 +149,55 @@ html:not(.defer-art) .creation-crown::before {
   padding-left: 10%;
 }
 
-.ai-creation-note-copy span {
-  display: block;
-  font-size: clamp(11px, 1.05vw, 15px);
-  letter-spacing: .07em;
-  font-weight: 700;
+.ai-creation-note-label {
+  position: absolute;
+  inset: 18% 16% auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .65em;
+  font-size: clamp(11px, 1.15vw, 17px);
+  letter-spacing: .09em;
+  font-weight: 750;
   text-transform: uppercase;
 }
 
+.ai-creation-note-label::before,
+.ai-creation-note-label::after {
+  content: "";
+  width: 2.1em;
+  height: 1px;
+  background: #704624a6;
+}
+
 .ai-creation-note-copy p {
-  margin: 10px 0 0;
+  margin: 12% 0 0;
   color: #50311c;
-  font: italic 600 clamp(20px, 3vw, 46px)/1.12 Georgia, serif;
+  font: 600 clamp(23px, 4.05vw, 61px)/.92 "Caveat", cursive;
+  transform: rotate(-7deg);
+}
+
+.ai-creation-note-copy p span {
+  display: block;
+}
+
+.ai-creation-note-copy p span:empty {
+  display: none;
+}
+
+.ai-creation-note-copy p::after {
+  content: "";
+  display: block;
+  width: 65%;
+  height: .25em;
+  margin: .13em 0 0 .65em;
+  border-top: 2px solid #5f3923;
+  border-radius: 50%;
+  transform: rotate(-7deg);
+}
+
+html.defer-art .creation-crown[data-deferred-background] .ai-creation-note-copy p {
+  font-family: cursive;
 }
 
 .ai-creation-arrow {
@@ -161,7 +205,7 @@ html:not(.defer-art) .creation-crown::before {
   align-self: start;
   position: relative;
   z-index: 1;
-  margin: clamp(14px, 2.6vw, 42px) 0 0 -12%;
+  margin: clamp(45px, 6.3vw, 94px) 0 0 -12%;
   text-align: center;
   color: var(--red);
 }
@@ -176,9 +220,7 @@ html:not(.defer-art) .creation-crown::before {
   display: block;
   width: 145%;
   height: auto;
-  margin-top: 10px;
-  transform: rotate(-12deg);
-  transform-origin: left center;
+  margin-top: 2px;
 }
 
 .ai-creation-result {
@@ -189,26 +231,30 @@ html:not(.defer-art) .creation-crown::before {
   margin: 0 0 -3% -5%;
 }
 
-.ai-creation-result figcaption {
+.ai-creation-ribbon {
   position: relative;
   z-index: 1;
-  width: max-content;
-  max-width: 100%;
-  margin: 0 auto -4%;
-  padding: .4em .85em;
-  transform: rotate(-5deg);
-  color: #44280f;
-  background:
-    linear-gradient(110deg, #d8a86b70, #f2d29935 42%, #d6a36864),
-    #e7b97c url("assets/ai-idea-note.webp") 14% 45% / 270% auto;
-  border-radius: 42% 12% 38% 11% / 21% 18% 22% 19%;
-  box-shadow: 0 3px 6px #673c1838;
-  font-size: clamp(20px, 2.4vw, 36px);
-  line-height: 1;
+  width: min(60%, 350px);
+  margin: 0 0 -10% 6%;
+  background: url("assets/ai-artifact-ribbon.webp") center / 100% 100% no-repeat;
+  color: #38200f;
+}
+
+.ai-creation-ribbon svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.ai-creation-ribbon text {
+  fill: currentColor;
+  font-size: 39px;
+  letter-spacing: .015em;
   text-shadow: none;
 }
 
-html.defer-art .creation-crown[data-deferred-background] .ai-creation-result figcaption {
+html.defer-art .creation-crown[data-deferred-background] .ai-creation-ribbon {
   background-image: none;
 }
 
@@ -389,7 +435,7 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
   }
 
   .ai-creation-note-copy p {
-    font-size: 19px;
+    font-size: 23px;
   }
 
   .ai-creation-arrow {
@@ -436,7 +482,7 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
   }
 
   .ai-creation-note-copy p {
-    font-size: clamp(19px, 6vw, 30px);
+    font-size: clamp(24px, 8vw, 39px);
   }
 
   .ai-creation-arrow {
@@ -459,8 +505,10 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
     margin: 0 auto -12px;
   }
 
-  .ai-creation-result figcaption {
-    font-size: 21px;
+  .ai-creation-ribbon {
+    width: min(65%, 245px);
+    margin-inline: auto;
+    margin-block-end: -7%;
   }
 
   .ai-creation-status {
@@ -495,12 +543,12 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
 /* Keep the longer English example clear of the sketched crescent. */
 @media (min-width: 761px) {
   html[lang="en"] .ai-creation-note-copy p {
-    font-size: clamp(20px, 2.45vw, 37px);
+    font-size: clamp(22px, 3vw, 45px);
   }
 }
 
 @media (max-width: 640px) {
   html[lang="en"] .ai-creation-note-copy p {
-    font-size: clamp(16px, 5.2vw, 27px);
+    font-size: clamp(20px, 6.4vw, 32px);
   }
 }
