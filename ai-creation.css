@@ -36,8 +36,8 @@
   inset: calc(var(--paper-start) - var(--paper-blend)) 0
     calc(var(--paper-end) - var(--paper-blend) - 20px);
   background:
-    linear-gradient(#f5e8d4b8, transparent 160px, transparent calc(100% - 100px), #f5e8d4a0),
-    #f5e4c7 url("assets/ai-parchment-texture.webp") center top / min(100%, 760px) auto;
+    linear-gradient(#f5e8d4b8, #f5e8d430 135px, #f5e8d430 calc(100% - 100px), #f5e8d4a0),
+    #f5e4c7 url("assets/ai-parchment-texture.webp?v=20261110") center top / 100% 100% no-repeat;
   pointer-events: none;
 }
 
@@ -161,7 +161,7 @@ html:not(.defer-art) .creation-crown::before {
   align-self: start;
   position: relative;
   z-index: 1;
-  margin: clamp(28px, 4.3vw, 58px) 0 0 -12%;
+  margin: clamp(14px, 2.6vw, 42px) 0 0 -12%;
   text-align: center;
   color: var(--red);
 }
@@ -174,10 +174,11 @@ html:not(.defer-art) .creation-crown::before {
 
 .ai-creation-arrow svg {
   display: block;
-  width: 100%;
+  width: 145%;
   height: auto;
-  transform: rotate(-35deg);
-  transform-origin: right center;
+  margin-top: 10px;
+  transform: rotate(-12deg);
+  transform-origin: left center;
 }
 
 .ai-creation-result {
@@ -197,12 +198,18 @@ html:not(.defer-art) .creation-crown::before {
   padding: .4em .85em;
   transform: rotate(-5deg);
   color: #44280f;
-  background: linear-gradient(110deg, #d8a86b, #f2d299 42%, #d6a368);
-  border-radius: 45% 8% 38% 9% / 12% 10% 17% 13%;
+  background:
+    linear-gradient(110deg, #d8a86b70, #f2d29935 42%, #d6a36864),
+    #e7b97c url("assets/ai-idea-note.webp") 14% 45% / 270% auto;
+  border-radius: 42% 12% 38% 11% / 21% 18% 22% 19%;
   box-shadow: 0 3px 6px #673c1838;
   font-size: clamp(20px, 2.4vw, 36px);
   line-height: 1;
   text-shadow: none;
+}
+
+html.defer-art .creation-crown[data-deferred-background] .ai-creation-result figcaption {
+  background-image: none;
 }
 
 .ai-creation-result picture,
@@ -212,7 +219,26 @@ html:not(.defer-art) .creation-crown::before {
 }
 
 .ai-creation-result img {
+  position: relative;
   height: auto;
+}
+
+.ai-creation-result picture {
+  position: relative;
+  isolation: isolate;
+}
+
+.ai-creation-result picture::before {
+  content: "";
+  position: absolute;
+  inset: -3% auto auto -3%;
+  width: 61%;
+  aspect-ratio: 1;
+  background:
+    radial-gradient(circle, #fff9d2e0, #ffdb8290 27%, #ffce6b20 58%, transparent 70%),
+    repeating-conic-gradient(from 5deg, transparent 0deg 10deg, #fff7c4d9 13deg, transparent 16deg 26deg);
+  mask-image: radial-gradient(circle, #000 0%, #000 26%, transparent 70%);
+  pointer-events: none;
 }
 
 .ai-creation-status {
@@ -259,10 +285,10 @@ html:not(.defer-art) .creation-crown::before {
 .ai-crown-ledge {
   position: absolute;
   right: -1%;
-  width: min(36%, 540px);
-  height: clamp(290px, 34vw, 490px);
+  width: min(42%, 630px);
+  height: clamp(306px, 36vw, 510px);
   z-index: 0;
-  transform: translateY(calc(-72% + 10px));
+  transform: translateY(calc(-73% + 16px));
   pointer-events: none;
   background: url("assets/ai-crown-rock-ledge.webp") right center / 100% 100% no-repeat;
 }
@@ -278,14 +304,39 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
 }
 
 @media (min-width: 761px) {
+  .ai-creation-layout {
+    row-gap: clamp(16px, 1.9vw, 29px);
+  }
+
+  .ai-creation-intro h2 {
+    font-size: clamp(44px, 6.4vw, 96px);
+  }
+
+  .ai-creation-intro p {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .ai-creation-intro p::after {
+    content: "";
+    width: min(22%, 108px);
+    height: 1px;
+    background: #7c583775;
+  }
+
+  .ai-creation-idea {
+    margin-inline-start: clamp(-26px, -1.85vw, -13px);
+  }
+
   .ai-creation-result {
     justify-self: end;
     width: min(109%, 650px);
-    margin-inline: 0 calc(-1 * min(5vw, 80px));
+    margin: 0 calc(-1 * min(5vw, 80px)) clamp(-62px, -4.5vw, -32px) 0;
   }
 
   .ai-creation-status {
-    padding-inline-end: clamp(100px, 15vw, 232px);
+    padding-inline-end: clamp(100px, 17vw, 246px);
   }
 }
 
@@ -316,6 +367,11 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
     inset-inline: -5%;
   }
 
+  .creation-crown::after {
+    background-size: 100% 100%, max(620px, 100%) auto;
+    background-repeat: no-repeat, repeat-y;
+  }
+
   .ai-creation {
     padding-top: calc(var(--paper-start) + 12px);
   }
@@ -337,7 +393,11 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
   }
 
   .ai-creation-arrow {
-    margin-top: 30px;
+    margin-top: 25px;
+  }
+
+  .ai-creation-arrow svg {
+    width: 100%;
   }
 
   .ai-crown-ledge {
@@ -389,7 +449,9 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
 
   .ai-creation-arrow svg {
     width: 31px;
+    margin-top: 0;
     transform: rotate(90deg);
+    transform-origin: center;
   }
 
   .ai-creation-result {
