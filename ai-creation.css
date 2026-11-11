@@ -658,3 +658,27 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
     margin-top: 14px;
   }
 }
+
+/* Keep the diagonal story together as compact mobile widths grow into tablets. */
+@media (min-width: 390px) and (max-width: 640px) {
+  .ai-creation-idea {
+    width: min(calc(21vw + 200px), 340px);
+  }
+
+  .ai-creation-note-copy p {
+    font-size: clamp(26px, 5.8vw, 38px);
+  }
+
+  html[lang="en"] .ai-creation-note-copy p {
+    font-size: clamp(23px, 5vw, 31px);
+  }
+
+  .ai-creation-arrow {
+    margin-left: calc(11% + 40vw - 156px);
+  }
+
+  .ai-creation-result {
+    width: min(calc(20vw + 214px), 350px);
+    margin-top: clamp(-55px, calc(86px - 22vw), 0px);
+  }
+}
