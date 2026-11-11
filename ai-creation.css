@@ -466,7 +466,7 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 760px) {
   .creation-crown {
     --paper-start: 68px;
   }
@@ -561,14 +561,14 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 760px) {
   html[lang="en"] .ai-creation-note-copy p {
     font-size: clamp(27px, 8.4vw, 35px);
   }
 }
 
 /* A compact diagonal sequence keeps the sketch, arrow and finished artifact distinct. */
-@media (max-width: 640px) {
+@media (max-width: 760px) {
   .ai-creation-layout {
     grid-template-rows: none;
     row-gap: 0;
@@ -659,26 +659,93 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
   }
 }
 
-/* Keep the diagonal story together as compact mobile widths grow into tablets. */
-@media (min-width: 390px) and (max-width: 640px) {
+/* The approved portrait reference places the whole story on one warm map sheet. */
+@media (max-width: 760px) {
+  .ai-creation {
+    isolation: isolate;
+    padding-top: 44px;
+  }
+
+  .ai-creation::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0 0 auto;
+    width: 100%;
+    aspect-ratio: 941 / 1672;
+    background: url("assets/ai-parchment-landscape-mobile-20261111.webp") center top / 100% 100% no-repeat;
+    mask-image: linear-gradient(#000 0 82%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .ai-creation-intro {
+    margin-left: clamp(14px, 5vw, 30px);
+  }
+
+  .ai-creation-intro h2 {
+    font-size: clamp(35px, 11.8vw, 70px);
+    line-height: .88;
+  }
+
+  .ai-creation-intro p {
+    margin-top: 4px;
+    font-size: clamp(16px, 4vw, 23px);
+  }
+
   .ai-creation-idea {
-    width: min(calc(21vw + 200px), 340px);
+    width: min(70vw, 440px);
+    margin: 0 0 -8px -10px;
   }
 
   .ai-creation-note-copy p {
-    font-size: clamp(26px, 5.8vw, 38px);
+    font-size: clamp(21px, 6.6vw, 42px);
   }
 
   html[lang="en"] .ai-creation-note-copy p {
-    font-size: clamp(23px, 5vw, 31px);
+    font-size: clamp(18px, 5.6vw, 35px);
   }
 
   .ai-creation-arrow {
-    margin-left: calc(11% + 40vw - 156px);
+    margin-top: clamp(-17px, calc(26px - 9vw), -6px);
+    margin-left: 3vw;
   }
 
   .ai-creation-result {
-    width: min(calc(20vw + 214px), 350px);
-    margin-top: clamp(-55px, calc(86px - 22vw), 0px);
+    width: 72vw;
+    margin-top: clamp(-40px, calc(60px - 20vw), -18px);
+  }
+
+  .ai-creation-ribbon {
+    width: min(57vw, 365px);
+    margin-right: 0;
+  }
+
+  .ai-creation-ribbon text {
+    font-size: 44px;
+  }
+
+  .ai-creation-result picture {
+    transform: translateX(-4vw);
+  }
+
+  .ai-creation-result::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: calc(50% - 30px);
+    bottom: 20px;
+    width: calc(100vw + 30px);
+    aspect-ratio: 2172 / 724;
+    transform: translateX(-50%);
+    background: url("assets/ai-scene-ground-mobile-20261111.webp") center / 100% 100% no-repeat;
+    pointer-events: none;
+  }
+
+  .ai-creation-result picture::before {
+    inset: -11% auto auto -24%;
+    width: 96%;
+    background:
+      radial-gradient(circle, #fffdf4, #ffe896ef 27%, #ffcc5b55 60%, transparent 73%),
+      repeating-conic-gradient(from 5deg, transparent 0deg 10deg, #fff9e7f7 13deg, transparent 16deg 26deg);
   }
 }
