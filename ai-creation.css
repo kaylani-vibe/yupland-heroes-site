@@ -703,13 +703,13 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
   }
 
   .ai-creation-intro h2 {
-    font-size: clamp(35px, 11.8vw, 70px);
+    font-size: clamp(35px, 9.7vw, 58px);
     line-height: .88;
   }
 
   .ai-creation-intro p {
     margin-top: 4px;
-    font-size: clamp(16px, 4vw, 23px);
+    font-size: clamp(16px, 3vw, 18px);
   }
 
   .ai-creation-idea {
