@@ -663,7 +663,20 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
 @media (max-width: 760px) {
   .ai-creation {
     isolation: isolate;
-    padding-top: 44px;
+    padding-top: clamp(76px, 17vw, 108px);
+  }
+
+  .ai-world-seam {
+    z-index: 3;
+    top: -10vw;
+    height: 25vw;
+    overflow: hidden;
+    mask-image: linear-gradient(#000 0 68%, transparent 100%);
+  }
+
+  .ai-world-seam img {
+    height: auto;
+    object-fit: contain;
   }
 
   .ai-creation::before {
@@ -674,7 +687,8 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
     width: 100%;
     aspect-ratio: 941 / 1672;
     background: url("assets/ai-parchment-landscape-mobile-20261111.webp") center top / 100% 100% no-repeat;
-    mask-image: linear-gradient(#000 0 82%, transparent 100%);
+    opacity: .76;
+    mask-image: linear-gradient(to bottom, transparent, #000 52px, #000 78%, transparent 100%);
     pointer-events: none;
   }
 
@@ -728,24 +742,15 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
     transform: translateX(-4vw);
   }
 
-  .ai-creation-result::before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    left: calc(50% - 30px);
-    bottom: 20px;
-    width: calc(100vw + 30px);
-    aspect-ratio: 2172 / 724;
-    transform: translateX(-50%);
-    background: url("assets/ai-scene-ground-mobile-20261111.webp") center / 100% 100% no-repeat;
-    pointer-events: none;
-  }
-
   .ai-creation-result picture::before {
     inset: -11% auto auto -24%;
     width: 96%;
     background:
       radial-gradient(circle, #fffdf4, #ffe896ef 27%, #ffcc5b55 60%, transparent 73%),
       repeating-conic-gradient(from 5deg, transparent 0deg 10deg, #fff9e7f7 13deg, transparent 16deg 26deg);
+  }
+
+  .creation-crown .mini {
+    padding-top: 12px;
   }
 }
