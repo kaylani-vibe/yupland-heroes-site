@@ -661,6 +661,12 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
 
 /* The approved portrait reference places the whole story on one warm map sheet. */
 @media (max-width: 760px) {
+  /* Start the shared paper under the rocky edge without a horizontal inset seam. */
+  .creation-crown::after {
+    top: 0;
+    mask-image: linear-gradient(to bottom, transparent, #000 90px);
+  }
+
   .ai-creation {
     isolation: isolate;
     padding-top: clamp(76px, 17vw, 108px);
