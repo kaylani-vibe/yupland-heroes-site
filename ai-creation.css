@@ -43,8 +43,8 @@
   inset: calc(var(--paper-start) - var(--paper-blend)) 0
     calc(var(--paper-end) - var(--paper-blend) - 20px);
   background:
-    linear-gradient(#f5e8d4b8, #f5e8d430 135px, #f5e8d430 calc(100% - 100px), #f5e8d4a0),
-    #f5e4c7 url("assets/ai-parchment-texture.webp?v=20261110") center top / 100% 100% no-repeat;
+    linear-gradient(#f5e8d475, #f5e8d414 135px, #f5e8d414 calc(100% - 100px), #f5e8d480),
+    #f5e4c7 url("assets/ai-parchment-texture.webp?v=20261110") center top / 100% 1050px repeat-y;
   pointer-events: none;
 }
 
@@ -125,7 +125,7 @@ html:not(.defer-art) .creation-crown::before {
   display: grid;
   align-items: center;
   isolation: isolate;
-  width: min(100%, 510px);
+  width: min(120%, 610px);
   aspect-ratio: 4 / 3;
   border-radius: 8%;
   background: radial-gradient(ellipse at center, #e8c991 8%, #e8c99100 70%);
@@ -145,8 +145,8 @@ html:not(.defer-art) .creation-crown::before {
 }
 
 .ai-creation-note-copy {
-  width: 55%;
-  padding-left: 10%;
+  width: 57%;
+  padding-left: 9%;
 }
 
 .ai-creation-note-label {
@@ -171,9 +171,9 @@ html:not(.defer-art) .creation-crown::before {
 }
 
 .ai-creation-note-copy p {
-  margin: 12% 0 0;
+  margin: 7% 0 0;
   color: #50311c;
-  font: 600 clamp(23px, 4.05vw, 61px)/.92 "Caveat", cursive;
+  font: 600 clamp(23px, 4.5vw, 66px)/.92 "Caveat", cursive;
   transform: rotate(-7deg);
 }
 
@@ -205,7 +205,7 @@ html.defer-art .creation-crown[data-deferred-background] .ai-creation-note-copy 
   align-self: start;
   position: relative;
   z-index: 1;
-  margin: clamp(45px, 6.3vw, 94px) 0 0 -12%;
+  margin: clamp(62px, 8vw, 118px) 0 0 25%;
   text-align: center;
   color: var(--red);
 }
@@ -218,9 +218,13 @@ html.defer-art .creation-crown[data-deferred-background] .ai-creation-note-copy 
 
 .ai-creation-arrow svg {
   display: block;
-  width: 145%;
+  width: 205%;
   height: auto;
   margin-top: 2px;
+}
+
+.ai-creation-arrow svg.ai-creation-arrow-mobile {
+  display: none;
 }
 
 .ai-creation-result {
@@ -229,6 +233,7 @@ html.defer-art .creation-crown[data-deferred-background] .ai-creation-note-copy 
   position: relative;
   width: min(108%, 610px);
   margin: 0 0 -3% -5%;
+  background: radial-gradient(ellipse 58% 40% at 37% 34%, #ffe3a157, transparent 78%);
 }
 
 .ai-creation-ribbon {
@@ -331,10 +336,10 @@ html.defer-art .creation-crown[data-deferred-background] .ai-creation-ribbon {
 .ai-crown-ledge {
   position: absolute;
   right: -1%;
-  width: min(42%, 630px);
-  height: clamp(306px, 36vw, 510px);
+  width: min(51%, 740px);
+  height: clamp(330px, 40vw, 570px);
   z-index: 0;
-  transform: translateY(calc(-73% + 16px));
+  transform: translateY(calc(-72% + 16px));
   pointer-events: none;
   background: url("assets/ai-crown-rock-ledge.webp") right center / 100% 100% no-repeat;
 }
@@ -347,6 +352,14 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
   z-index: 2;
   margin-top: 0;
   padding-top: clamp(42px, 7vw, 104px);
+}
+
+@media (min-width: 1200px) {
+  .ai-crown-ledge {
+    width: min(44%, 650px);
+    height: clamp(390px, 34vw, 490px);
+    transform: translateY(calc(-49% + 16px));
+  }
 }
 
 @media (min-width: 761px) {
@@ -372,7 +385,7 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
   }
 
   .ai-creation-idea {
-    margin-inline-start: clamp(-26px, -1.85vw, -13px);
+    margin-inline-start: clamp(-55px, -4vw, -30px);
   }
 
   .ai-creation-result {
@@ -414,7 +427,7 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
   }
 
   .creation-crown::after {
-    background-size: 100% 100%, max(620px, 100%) auto;
+    background-size: 100% 100%, max(620px, 100%) 620px;
     background-repeat: no-repeat, repeat-y;
   }
 
@@ -435,11 +448,11 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
   }
 
   .ai-creation-note-copy p {
-    font-size: 23px;
+    font-size: clamp(23px, 3vw, 32px);
   }
 
   .ai-creation-arrow {
-    margin-top: 25px;
+    margin-top: 36px;
   }
 
   .ai-creation-arrow svg {
@@ -447,9 +460,9 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
   }
 
   .ai-crown-ledge {
-    width: 36%;
-    height: 112px;
-    transform: translateY(-8%);
+    width: 43%;
+    height: 138px;
+    transform: translateY(-28%);
   }
 }
 
@@ -461,7 +474,7 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
   .ai-creation-layout {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: none;
-    row-gap: 15px;
+    row-gap: 0;
   }
 
   .ai-creation-intro,
@@ -477,8 +490,8 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
   }
 
   .ai-creation-idea {
-    width: min(84%, 320px);
-    margin-inline: auto;
+    width: min(94%, 380px);
+    margin: 4px auto -8px;
   }
 
   .ai-creation-note-copy p {
@@ -490,7 +503,7 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
     align-items: center;
     gap: 8px;
     justify-self: center;
-    margin: -16px 0 0;
+    margin: 0;
   }
 
   .ai-creation-arrow svg {
@@ -502,7 +515,7 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
 
   .ai-creation-result {
     width: min(105%, 420px);
-    margin: 0 auto -12px;
+    margin: 0 auto -26px;
   }
 
   .ai-creation-ribbon {
@@ -514,6 +527,7 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
   .ai-creation-status {
     grid-template-columns: minmax(0, 1fr);
     gap: 12px;
+    margin-top: 20px;
   }
 
   .ai-creation-stage {
@@ -530,9 +544,9 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
 
   .ai-crown-ledge {
     right: -3%;
-    width: 39%;
-    height: 104px;
-    transform: translateY(-15%);
+    width: 44%;
+    height: 124px;
+    transform: translateY(-32%);
   }
 
   .creation-crown .mini {
@@ -543,12 +557,104 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
 /* Keep the longer English example clear of the sketched crescent. */
 @media (min-width: 761px) {
   html[lang="en"] .ai-creation-note-copy p {
-    font-size: clamp(22px, 3vw, 45px);
+    font-size: clamp(26px, 3.6vw, 53px);
   }
 }
 
 @media (max-width: 640px) {
   html[lang="en"] .ai-creation-note-copy p {
-    font-size: clamp(20px, 6.4vw, 32px);
+    font-size: clamp(27px, 8.4vw, 35px);
+  }
+}
+
+/* A compact diagonal sequence keeps the sketch, arrow and finished artifact distinct. */
+@media (max-width: 640px) {
+  .ai-creation-layout {
+    grid-template-rows: none;
+    row-gap: 0;
+  }
+
+  .ai-creation-idea,
+  .ai-creation-arrow,
+  .ai-creation-result,
+  .ai-creation-status {
+    grid-area: auto;
+  }
+
+  .ai-creation-idea {
+    justify-self: start;
+    align-self: auto;
+    z-index: 1;
+    width: min(82%, 360px);
+    margin: 8px 0 0 -4px;
+  }
+
+  .ai-creation-note-label {
+    font-size: clamp(10px, 2.8vw, 17px);
+  }
+
+  .ai-creation-note-copy p {
+    font-size: clamp(21px, 6.6vw, 42px);
+  }
+
+  html[lang="en"] .ai-creation-note-copy p {
+    font-size: clamp(18px, 5.6vw, 31px);
+  }
+
+  .ai-creation-arrow {
+    justify-self: start;
+    align-self: auto;
+    z-index: 3;
+    display: block;
+    width: 110px;
+    height: 100px;
+    margin: -3px 0 -76px 11%;
+  }
+
+  .ai-creation-arrow span {
+    display: block;
+    font-size: clamp(32px, 9vw, 49px);
+    line-height: 1;
+  }
+
+  .ai-creation-arrow svg.ai-creation-arrow-desktop {
+    display: none;
+  }
+
+  .ai-creation-arrow svg.ai-creation-arrow-mobile {
+    display: block;
+    width: clamp(84px, 24vw, 108px);
+    height: auto;
+    margin: -3px 0 0;
+    transform: none;
+  }
+
+  .ai-creation-result {
+    justify-self: end;
+    align-self: auto;
+    z-index: 2;
+    width: min(85%, 390px);
+    margin: 0 -8px -15px 0;
+  }
+
+  .ai-creation-ribbon {
+    position: relative;
+    z-index: 1;
+    top: auto;
+    right: auto;
+    width: min(70%, 240px);
+    margin: 0 4% -7% auto;
+  }
+
+  .ai-creation-result picture::before {
+    inset: -8% auto auto -18%;
+    width: 83%;
+    background:
+      radial-gradient(circle, #fff9d2f2, #ffdc85ba 28%, #ffce6b2b 58%, transparent 72%),
+      repeating-conic-gradient(from 5deg, transparent 0deg 10deg, #fff7c4e5 13deg, transparent 16deg 26deg);
+  }
+
+  .ai-creation-status {
+    margin-top: 14px;
   }
 }

@@ -1,6 +1,5 @@
-/* Reference lock: approved EN creator vision, 4 November 2026. */
-.creator-vision{display:none;position:relative;z-index:1;padding:88px 0 100px;color:#fff}
-html[lang="en"] .creator-vision{display:block}
+/* Approved EN vision artwork and layout, 4 November 2026; localized RU copy, 10 November 2026. */
+.creator-vision{display:block;position:relative;z-index:1;padding:88px 0 100px;color:#fff}
 .creator-inner{max-width:1440px}
 .creator-intro{display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:0}
 .creator-copy{position:relative;z-index:1}
@@ -27,7 +26,7 @@ html[lang="en"] .creator-vision{display:block}
 @media(max-width:760px){.creator-vision{padding:60px 0 64px}.creator-intro{grid-template-columns:1fr}.creator-kicker{margin-bottom:24px;font-size:14px}#creator-title{font-size:clamp(43px,8.7vw,65px)}.creator-description{font-size:18px;max-width:480px}.creator-art{width:100%;max-width:580px;margin:20px auto 0}.creator-roadmap{margin:36px 0 42px}.creator-roadmap li{padding:40px 12px 0}.creator-roadmap h3{font-size:14px}.creator-roadmap p{font-size:16px}.creator-node{width:24px;height:24px;left:calc(50% - 12px)}.creator-roadmap li::before{top:11px}}
 @media(max-width:480px){.creator-roadmap{grid-template-columns:1fr;gap:0}.creator-roadmap li{padding:0 0 28px 48px;border:0!important}.creator-roadmap li:last-child{padding-bottom:0}.creator-node{left:0;top:1px}.creator-roadmap li::before{top:20px;bottom:-2px;left:11px;right:auto;width:1px;height:auto}.creator-roadmap h3{font-size:15px;margin-bottom:6px}.creator-roadmap p{font-size:20px}.creator-proof strong{font-size:25px}.creator-proof p+p{font-size:16px}}
 /* One continuous surface across news, vision and finale: no internal image edge. */
-html[lang="en"] .news-finale::before{background-size:auto,cover;background-position:center,center}
+.news-finale::before{background-size:auto,cover;background-position:center,center}
 .creator-roadmap li+li{border-left:0}
 .creator-roadmap li+li::after{content:"";position:absolute;left:0;top:56px;bottom:0;width:1px;background:#d5c78d80}
 @media(max-width:480px){.creator-roadmap li+li::after{display:none}}
