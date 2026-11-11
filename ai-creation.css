@@ -661,7 +661,7 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
 
 /* The approved portrait reference places the whole story on one warm map sheet. */
 @media (max-width: 760px) {
-  /* Start the shared paper under the rocky edge without a horizontal inset seam. */
+  /* Keep the paper under the stone cutout without revealing a straight edge. */
   .creation-crown::after {
     top: 0;
     mask-image: linear-gradient(to bottom, transparent, #000 90px);
@@ -683,6 +683,8 @@ html.defer-art .creation-crown[data-deferred-background] .ai-crown-ledge {
   .ai-world-seam img {
     height: auto;
     object-fit: contain;
+    transform: skewY(-5deg);
+    transform-origin: left top;
   }
 
   .ai-creation::before {
