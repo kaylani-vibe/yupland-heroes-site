@@ -95,6 +95,7 @@ html[lang=en] .hero h1{font-size:clamp(64px,8vw,115px)}html[lang=en] .how h2{fon
 .features p{font-size:14px;line-height:1.32;font-weight:400}
 .mini h2{font-size:clamp(67px,6.25vw,90px)}
 .mini-blurb{max-width:390px;font-size:14px;line-height:1.4;font-weight:400}
+.mini-creator-note{max-width:390px;margin:-12px 0 24px;color:#4c3622;font-size:14px;line-height:1.45}
 .final h2{font-size:clamp(65px,6.2vw,96px)}
 .section-rocks{top:calc(100% - 23.2vw)}
 @media(max-width:1100px){.how h2{font-size:clamp(54px,5.9vw,67px)}.step-art{height:215px}.step-copy h3{font-size:20px}.world-yupik{width:36%;right:31%}}
